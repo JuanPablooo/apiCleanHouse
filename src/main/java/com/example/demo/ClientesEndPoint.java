@@ -16,4 +16,10 @@ public class ClientesEndPoint {
 
         System.out.println("jsossdfos");
     }
+    public class SeiLa{
+        public void nsei(){
+            System.out.println("blablabla");
+        }
+    }
 }
+
