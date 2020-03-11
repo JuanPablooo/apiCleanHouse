@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/clientes")
 public class ClientesEndPoint {
     public void teste(){
-        System.out.println("khsdhggi");
+        System.out.println("khsdhggdsfsdfsdfi");
     }
 
     @GetMapping("/s")
