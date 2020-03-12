@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/profissionais")
+@RequestMapping("profissionais")
 public class ProfissionalEndPoint {
-    private final List<ProfissionalRepository> ProfissionalDAO;
-
-
-    @Autowired
-    public ProfissionalEndPoint(List<ProfissionalRepository> profissionalDAO) {
-        ProfissionalDAO = profissionalDAO;
-    }
+//    private final List<ProfissionalRepository> ProfissionalDAO;
+//
+//
+//    @Autowired
+//    public ProfissionalEndPoint(List<ProfissionalRepository> profissionalDAO) {
+//        ProfissionalDAO = profissionalDAO;
+//    }
 
 //    @GetMapping()
 //    public ResponseEntity<?> listAll(){
