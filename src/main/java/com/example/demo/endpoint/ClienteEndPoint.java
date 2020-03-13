@@ -3,20 +3,17 @@ package com.example.demo.endpoint;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("clientes")
 public class ClienteEndPoint {
 
-    @GetMapping("/s")
-    public void sksdk(){
 
-        System.out.println("jsossdfos");
+    @GetMapping("s")
+    public void teste(){
+        System.out.println("salve");
     }
-    public class SeiLa{
-        public void nsei(){
-            System.out.println("blablabla");
-        }
-    }
+
 }
 
