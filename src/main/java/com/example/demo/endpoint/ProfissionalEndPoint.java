@@ -5,31 +5,58 @@ import com.example.demo.model.Profissional;
 import com.example.demo.repository.ProfissionalRepository;
 import net.minidev.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("profissionais")
+@RequestMapping("v1")
 public class ProfissionalEndPoint {
-//    private final List<ProfissionalRepository> ProfissionalDAO;
-//
-//
-//    @Autowired
-//    public ProfissionalEndPoint(List<ProfissionalRepository> profissionalDAO) {
-//        ProfissionalDAO = profissionalDAO;
-//    }
+    private final String END_POINT = "profissionais";
 
-//    @GetMapping()
-//    public ResponseEntity<?> listAll(){
-//        //return new ResponseEntity<>(ProfissionalDAO.findAll)
-//    }
-    @GetMapping("s")
-    public void teste(){
-        System.out.println("salve");
+    @Autowired
+    private  ProfissionalRepository profissionalDAO;
+
+    @GetMapping(END_POINT)
+    public ResponseEntity<?> getProfissionais(){
+        return new ResponseEntity<>(profissionalDAO.findAll(), HttpStatus.OK);
     }
+    @GetMapping(END_POINT+"/{id}")
+    public ResponseEntity<?> getProfissional(@PathVariable Long id){
+        return new ResponseEntity<>(profissionalDAO.findById(id), HttpStatus.OK);
+    }
+
+    @PostMapping(END_POINT)
+    public ResponseEntity<?> setProfissional(@Valid @RequestBody Profissional profissional){
+        return new ResponseEntity<>(profissionalDAO.save(profissional), HttpStatus.CREATED);
+    }
+
+    @PutMapping(END_POINT)
+    public ResponseEntity<?> atualizaProfissional(@Valid @RequestBody Profissional profissional){
+        verificaExistenciaIdProfissional(profissional.getId());
+        profissionalDAO.save(profissional);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @DeleteMapping(END_POINT+"/{id}")
+    public ResponseEntity<?> deletaProfissional(@PathVariable Long id){
+        verificaExistenciaIdProfissional(id);
+        profissionalDAO.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private void verificaExistenciaIdProfissional(Long id){
+        //verifica se existe profissional com o id informado
+        if( ! profissionalDAO.findById(id).isPresent() ){
+            throw new ResourceNotFoundException("profissional nao encontrado pelo id: "+id);
+        }
+
+    }
+
 }
