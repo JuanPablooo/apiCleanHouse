@@ -1,4 +1,4 @@
-package com.example.demo.endpoint;
+package br.com.cleanhouse.endpoint;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

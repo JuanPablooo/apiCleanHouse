@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package br.com.cleanhouse.model;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotEmpty;
 public class Profissional extends AtributosGenericos{
 
     @NotEmpty
-    private String nome;
+    private String nomeCompleto;
 
     private String cpf;
 
@@ -26,12 +26,6 @@ public class Profissional extends AtributosGenericos{
     private String estado;
 
 
-    @Override
-    public String toString() {
-        return "Profissional{" +
-                ", nome='" + nome + '\'' +
-                '}';
-    }
 
 
 }

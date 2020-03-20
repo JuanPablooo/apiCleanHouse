@@ -1,7 +1,6 @@
-package com.example.demo.model;
+package br.com.cleanhouse.model;
 
 import lombok.Data;
-import org.hibernate.annotations.common.reflection.XMethod;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -40,16 +39,5 @@ public class Cliente extends AtributosGenericos{
     private String senha;
 
 
-    @Override
-    public String toString() {
-        return "Cliente[id=" + id +
-                ", nomeCompleto=" + nomeCompleto +
-                ", dataNascimento=" + dataNascimento +
-                ", email=" + email +
-                ", cpf=" + cpf  +
-                ", fotoPerfil=" + fotoPerfil +
-                ", telefoneFixo=" + telefoneFixo +
-                ", celular=" + celular +
-                "]";
-    }
+
 }
