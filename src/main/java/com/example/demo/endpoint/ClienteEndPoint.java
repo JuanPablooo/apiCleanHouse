@@ -34,7 +34,6 @@ public class ClienteEndPoint {
         return new ResponseEntity<>(clienteDAO.save(cliente), HttpStatus.CREATED);
     }
 
-
     @PutMapping(END_POINT)
     public ResponseEntity<?> atualizaCliente(@Valid @RequestBody Cliente  cliente){
         verificaExistenciaIdCliente(cliente.getId());
@@ -55,7 +54,6 @@ public class ClienteEndPoint {
         if( ! clienteDAO.findById(id).isPresent() ){
             throw new ResourceNotFoundException("profissional nao encontrado pelo id: "+id);
         }
-
     }
 }
 

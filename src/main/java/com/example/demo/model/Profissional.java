@@ -3,7 +3,9 @@ package com.example.demo.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.Instant;
 
@@ -12,8 +14,14 @@ import java.time.Instant;
 @Data
 public class Profissional extends AtributosGenericos{
 
-    @NotEmpty
-    private String nome;
+    @NotNull
+    private String nomeCompleto;
+
+    private String senha;
+
+    @NotNull
+    @Email
+    private String email;
 
     private String cpf;
 
@@ -21,12 +29,10 @@ public class Profissional extends AtributosGenericos{
     private Instant dataNascimento;
 
 
-    private String rua;
 
-    private String bairro;
 
-    private String cidade;
 
-    private String estado;
+    @OneToOne
+    private Endereco endereco;
 
 }
