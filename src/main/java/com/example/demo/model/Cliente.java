@@ -12,10 +12,8 @@ import javax.validation.constraints.Size;
 @Data
 public class Cliente extends AtributosGenericos{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    
     @NotNull
     private String nomeCompleto;
 
@@ -40,16 +38,5 @@ public class Cliente extends AtributosGenericos{
     private String senha;
 
 
-    @Override
-    public String toString() {
-        return "Cliente[id=" + id +
-                ", nomeCompleto=" + nomeCompleto +
-                ", dataNascimento=" + dataNascimento +
-                ", email=" + email +
-                ", cpf=" + cpf  +
-                ", fotoPerfil=" + fotoPerfil +
-                ", telefoneFixo=" + telefoneFixo +
-                ", celular=" + celular +
-                "]";
-    }
+
 }

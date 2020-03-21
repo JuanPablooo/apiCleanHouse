@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
+import java.time.Instant;
 
 @Entity
 @Table(name = "tbl_profissionais")
@@ -15,7 +17,9 @@ public class Profissional extends AtributosGenericos{
 
     private String cpf;
 
-    private String dataNascimento;
+    @Past(message= "a data deve estar no passado")
+    private Instant dataNascimento;
+
 
     private String rua;
 
@@ -24,14 +28,5 @@ public class Profissional extends AtributosGenericos{
     private String cidade;
 
     private String estado;
-
-
-    @Override
-    public String toString() {
-        return "Profissional{" +
-                ", nome='" + nome + '\'' +
-                '}';
-    }
-
 
 }
