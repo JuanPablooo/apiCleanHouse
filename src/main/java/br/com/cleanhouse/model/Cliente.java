@@ -1,7 +1,6 @@
-package com.example.demo.model;
+package br.com.cleanhouse.model;
 
 import lombok.Data;
-import org.hibernate.annotations.common.reflection.XMethod;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -43,6 +42,7 @@ public class Cliente extends AtributosGenericos{
     @OneToMany
     @JoinColumn(name = "cliente_id")
    private List<Residencia> residencias;
+
 
 
 }

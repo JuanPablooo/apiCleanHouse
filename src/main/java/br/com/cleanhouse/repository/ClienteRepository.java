@@ -1,6 +1,6 @@
-package com.example.demo.repository;
+package br.com.cleanhouse.repository;
 
-import com.example.demo.model.Cliente;
+import br.com.cleanhouse.model.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

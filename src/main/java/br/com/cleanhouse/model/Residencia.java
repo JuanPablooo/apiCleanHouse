@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package br.com.cleanhouse.model;
 
 import lombok.Data;
 

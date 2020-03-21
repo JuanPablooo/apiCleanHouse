@@ -1,7 +1,5 @@
-package com.example.demo.model;
+package br.com.cleanhouse.model;
 
-
-import org.dom4j.tree.AbstractEntity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

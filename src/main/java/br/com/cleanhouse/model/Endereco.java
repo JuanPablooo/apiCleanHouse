@@ -1,6 +1,5 @@
-package com.example.demo.model;
-
-import com.example.demo.model.AtributosGenericos;
+package br.com.cleanhouse.model;
+import br.com.cleanhouse.model.AtributosGenericos;
 import lombok.Data;
 
 import javax.persistence.Entity;

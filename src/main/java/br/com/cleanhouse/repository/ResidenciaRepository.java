@@ -1,6 +1,7 @@
-package com.example.demo.repository;
+package br.com.cleanhouse.repository;
 
-import com.example.demo.model.Residencia;
+
+import br.com.cleanhouse.model.Residencia;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ResidenciaRepository extends JpaRepository<Residencia, Long> {

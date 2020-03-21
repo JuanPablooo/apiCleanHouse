@@ -1,18 +1,15 @@
-package com.example.demo.endpoint;
+package br.com.cleanhouse.endpoint;
 
 
-import com.example.demo.model.Profissional;
-import com.example.demo.repository.ProfissionalRepository;
-import net.minidev.json.JSONUtil;
+import br.com.cleanhouse.model.Profissional;
+import br.com.cleanhouse.repository.ProfissionalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("v1")
@@ -20,7 +17,7 @@ public class ProfissionalEndPoint {
     private final String END_POINT = "profissionais";
 
     @Autowired
-    private  ProfissionalRepository profissionalDAO;
+    private ProfissionalRepository profissionalDAO;
 
     @GetMapping(END_POINT)
     public ResponseEntity<?> getProfissionais(){

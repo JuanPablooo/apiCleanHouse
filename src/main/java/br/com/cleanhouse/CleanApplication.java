@@ -1,13 +1,13 @@
-package com.example.demo;
+package br.com.cleanhouse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CleanTesteApplication {
+public class CleanApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CleanTesteApplication.class, args);
+		SpringApplication.run(CleanApplication.class, args);
 	}
 
 }

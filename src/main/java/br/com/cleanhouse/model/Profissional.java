@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package br.com.cleanhouse.model;
 
 import lombok.Data;
 
@@ -13,6 +13,7 @@ import java.time.Instant;
 @Table(name = "tbl_profissionais")
 @Data
 public class Profissional extends AtributosGenericos{
+
 
     @NotNull
     private String nomeCompleto;
