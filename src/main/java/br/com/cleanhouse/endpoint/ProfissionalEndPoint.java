@@ -2,6 +2,7 @@ package br.com.cleanhouse.endpoint;
 
 
 import br.com.cleanhouse.model.Profissional;
+import br.com.cleanhouse.repository.EnderecoRepository;
 import br.com.cleanhouse.repository.ProfissionalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -16,8 +17,12 @@ import javax.validation.Valid;
 public class ProfissionalEndPoint {
     private final String END_POINT = "profissionais";
 
+
     @Autowired
     private ProfissionalRepository profissionalDAO;
+
+    @Autowired
+    private EnderecoRepository enderecoDAO;
 
     @GetMapping(END_POINT)
     public ResponseEntity<?> getProfissionais(){
@@ -30,12 +35,14 @@ public class ProfissionalEndPoint {
 
     @PostMapping(END_POINT)
     public ResponseEntity<?> setProfissional(@Valid @RequestBody Profissional profissional){
+        enderecoDAO.save(profissional.getEndereco());
         return new ResponseEntity<>(profissionalDAO.save(profissional), HttpStatus.CREATED);
     }
 
     @PutMapping(END_POINT)
     public ResponseEntity<?> atualizaProfissional(@Valid @RequestBody Profissional profissional){
         verificaExistenciaIdProfissional(profissional.getId());
+        enderecoDAO.save(profissional.getEndereco());
         profissionalDAO.save(profissional);
         return new ResponseEntity<>(HttpStatus.OK);
     }

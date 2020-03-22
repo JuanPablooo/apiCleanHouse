@@ -29,10 +29,6 @@ public class Profissional extends AtributosGenericos{
     @Past(message= "a data deve estar no passado")
     private Instant dataNascimento;
 
-
-
-
-
     @OneToOne
     private Endereco endereco;
 
