@@ -18,12 +18,6 @@ public class Profissional extends AtributosGenericos{
     @NotNull
     private String nomeCompleto;
 
-    private String senha;
-
-    @NotNull
-    @Email
-    private String email;
-
     private String cpf;
 
     @Past(message= "a data deve estar no passado")
