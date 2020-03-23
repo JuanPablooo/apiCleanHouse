@@ -13,7 +13,8 @@ import java.util.List;
 @Data
 public class Cliente extends AtributosGenericos{
 
-
+    @OneToOne
+    private Usuario usuario;
     
     @NotNull
     private String nomeCompleto;
@@ -21,9 +22,7 @@ public class Cliente extends AtributosGenericos{
     @NotNull
     private String dataNascimento;
 
-    @NotNull
-    @Email
-    private String email;
+
 
     @NotNull
     private String cpf;
@@ -34,10 +33,6 @@ public class Cliente extends AtributosGenericos{
 
     @NotNull
     private String celular;
-
-    @NotNull
-    @Size(min=8, max=20, message="A senha deve conter no mínimo 8 caracteres e no máximo 20!")
-    private String senha;
 
     @OneToMany
     @JoinColumn(name = "cliente_id")

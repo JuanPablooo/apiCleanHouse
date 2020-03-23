@@ -4,6 +4,7 @@ package br.com.cleanhouse.endpoint;
 import br.com.cleanhouse.model.Profissional;
 import br.com.cleanhouse.repository.EnderecoRepository;
 import br.com.cleanhouse.repository.ProfissionalRepository;
+import br.com.cleanhouse.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ public class ProfissionalEndPoint {
     @Autowired
     private EnderecoRepository enderecoDAO;
 
+    @Autowired
+    private UsuarioRepository usuarioDAO;
+
     @GetMapping(END_POINT)
     public ResponseEntity<?> getProfissionais(){
         return new ResponseEntity<>(profissionalDAO.findAll(), HttpStatus.OK);
@@ -35,6 +39,7 @@ public class ProfissionalEndPoint {
 
     @PostMapping(END_POINT)
     public ResponseEntity<?> setProfissional(@Valid @RequestBody Profissional profissional){
+        usuarioDAO.save(profissional.getUsuario());
         enderecoDAO.save(profissional.getEndereco());
         return new ResponseEntity<>(profissionalDAO.save(profissional), HttpStatus.CREATED);
     }
@@ -42,6 +47,7 @@ public class ProfissionalEndPoint {
     @PutMapping(END_POINT)
     public ResponseEntity<?> atualizaProfissional(@Valid @RequestBody Profissional profissional){
         verificaExistenciaIdProfissional(profissional.getId());
+        usuarioDAO.save(profissional.getUsuario());
         enderecoDAO.save(profissional.getEndereco());
         profissionalDAO.save(profissional);
         return new ResponseEntity<>(HttpStatus.OK);

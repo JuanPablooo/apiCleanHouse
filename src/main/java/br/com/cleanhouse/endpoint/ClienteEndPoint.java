@@ -1,21 +1,23 @@
 package br.com.cleanhouse.endpoint;
 
 
+import br.com.cleanhouse.error.ResourceNotFoundException;
 import br.com.cleanhouse.model.Cliente;
-import br.com.cleanhouse.model.Endereco;
 import br.com.cleanhouse.model.Residencia;
+import br.com.cleanhouse.model.Usuario;
 import br.com.cleanhouse.repository.ClienteRepository;
 import br.com.cleanhouse.repository.EnderecoRepository;
 import br.com.cleanhouse.repository.ResidenciaRepository;
+import br.com.cleanhouse.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import javax.validation.*;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("v1")
@@ -31,6 +33,9 @@ public class ClienteEndPoint {
     @Autowired
     private EnderecoRepository enderecoDAO;
 
+    @Autowired
+    private UsuarioRepository usuarioDAO;
+
     @GetMapping(END_POINT)
     public ResponseEntity<?> getClientes(){
         return new ResponseEntity<>(clienteDAO.findAll(), HttpStatus.OK);
@@ -40,12 +45,15 @@ public class ClienteEndPoint {
 
     @GetMapping(END_POINT+"/{id}")
     public ResponseEntity<?> getCliente(@PathVariable("id") Long id){
+        verificaExistenciaIdCliente(id);
         return new ResponseEntity<>(clienteDAO.findById(id), HttpStatus.OK);
     }
 
 
     @PostMapping(END_POINT)
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<?> setCliente( @Valid @RequestBody Cliente cliente){
+        salvaUsuario(cliente.getUsuario());
         List<Residencia> residencias = cliente.getResidencias();
         residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
         //clienteDAO.save(cliente);
@@ -55,6 +63,7 @@ public class ClienteEndPoint {
 
     @PutMapping(END_POINT)
     public ResponseEntity<?> atualizaCliente(@Valid @RequestBody Cliente  cliente){
+        usuarioDAO.save(cliente.getUsuario());
         verificaExistenciaIdCliente(cliente.getId());
         List<Residencia> residencias = cliente.getResidencias();
         residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
@@ -63,18 +72,32 @@ public class ClienteEndPoint {
 
 
     @DeleteMapping(END_POINT+"/{id}")
-    public ResponseEntity<?> deletaCliente(@PathVariable("id")  Long id){
+    public ResponseEntity<?> deletaCliente(@PathVariable Long id){
         verificaExistenciaIdCliente(id);
         clienteDAO.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
+
     private void verificaExistenciaIdCliente(Long id){
         //verifica se existe profissional com o id informado
         if( ! clienteDAO.findById(id).isPresent() ){
-            throw new ResourceNotFoundException("profissional nao encontrado pelo id: "+id);
+            throw new ResourceNotFoundException("cliente nao encontrado pelo id: "+id);
         }
+    }
+
+   // o @Transational nao funciona entao vou validar na mao e devolver o erro desejado
+    private void salvaUsuario (@Valid @RequestBody Usuario usuario){
+        System.out.println("foooooi");
+        System.out.println(usuario);
+        System.out.println("--=-=-=--=--=-=-=-");
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator ();
+        Set<ConstraintViolation<Usuario>> constraintViolations =
+                validator.validate( usuario);
+        System.out.println(constraintViolations);
+        usuarioDAO.save(usuario);
     }
 }
 

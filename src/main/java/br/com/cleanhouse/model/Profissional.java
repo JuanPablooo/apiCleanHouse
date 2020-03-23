@@ -12,7 +12,10 @@ import java.time.Instant;
 @Entity
 @Table(name = "tbl_profissionais")
 @Data
-public class Profissional extends AtributosGenericos{
+public class Profissional extends AtributosGenericos {
+
+    @OneToOne
+    private Usuario usuario;
 
 
     @NotNull
@@ -25,5 +28,7 @@ public class Profissional extends AtributosGenericos{
 
     @OneToOne
     private Endereco endereco;
+
+
 
 }
