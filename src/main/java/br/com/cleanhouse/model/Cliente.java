@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "tbl_clientes")
 @Data
 public class Cliente extends AtributosGenericos{
-
+    //comentario da sabrina
     @OneToOne
     private Usuario usuario;
     
