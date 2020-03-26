@@ -15,12 +15,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Data
 @Table(name = "tbl_usuarios")
-<<<<<<< HEAD
-public class Usuario{
 
-=======
 public class Usuario extends AtributosGenericos{
->>>>>>> juan
     @NotEmpty
     @NotNull
     @Email(message = "email invalido")
@@ -30,8 +26,7 @@ public class Usuario extends AtributosGenericos{
     @Size(min=8, max=20, message="A senha deve conter no mínimo 8 caracteres e no máximo 20!")
     private String senha;
 
-<<<<<<< HEAD
-=======
+
     private String tipo;
->>>>>>> juan
+
 }
