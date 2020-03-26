@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_profissionais")
@@ -26,9 +27,18 @@ public class Profissional extends AtributosGenericos {
     @Past(message= "a data deve estar no passado")
     private Instant dataNascimento;
 
-    @OneToOne
-    private Endereco endereco;
 
+    private String fotoPerfil;
+
+    private String videoPerfil;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tbl_profissional_endereco",
+            joinColumns = @JoinColumn(name = "profissional_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "endereco_id")
+    )
+    private List<Endereco> enderecos;
 
 
 }

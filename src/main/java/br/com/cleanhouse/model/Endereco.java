@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "tbl_enderecos")
 public class Endereco extends AtributosGenericos {
 
-
+    private String numero;
 
     private String cep;
 
@@ -23,5 +23,5 @@ public class Endereco extends AtributosGenericos {
 
     private String pais;
 
-    private String referencia;
+    private String pontoReferencia;
 }

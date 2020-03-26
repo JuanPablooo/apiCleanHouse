@@ -11,14 +11,16 @@ public class Residencia extends AtributosGenericos {
 
 
 
-    private String informacoes;
 
-    private Long quantidadeQuartos;
+    private String complemento;
 
-    private String numero;
+    private Long quantidaQuartos;
 
-    @ManyToOne
+    @OneToOne
     private Endereco endereco;
+
+    @OneToOne
+    private Cliente clienteDono;
 
 
 }
