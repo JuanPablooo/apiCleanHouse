@@ -38,6 +38,8 @@ public class Cliente extends AtributosGenericos{
     @JoinColumn(name = "cliente_id")
    private List<Residencia> residencias;
 
+    
+
 
 
 }

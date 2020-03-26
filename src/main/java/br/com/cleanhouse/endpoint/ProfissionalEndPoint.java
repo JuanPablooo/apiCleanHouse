@@ -40,7 +40,7 @@ public class ProfissionalEndPoint {
     @PostMapping(END_POINT)
     public ResponseEntity<?> setProfissional(@Valid @RequestBody Profissional profissional){
         usuarioDAO.save(profissional.getUsuario());
-        enderecoDAO.save(profissional.getEndereco());
+        //enderecoDAO.save(profissional.getEndereco());
         return new ResponseEntity<>(profissionalDAO.save(profissional), HttpStatus.CREATED);
     }
 
@@ -48,7 +48,7 @@ public class ProfissionalEndPoint {
     public ResponseEntity<?> atualizaProfissional(@Valid @RequestBody Profissional profissional){
         verificaExistenciaIdProfissional(profissional.getId());
         usuarioDAO.save(profissional.getUsuario());
-        enderecoDAO.save(profissional.getEndereco());
+        //enderecoDAO.save(profissional.getEndereco());
         profissionalDAO.save(profissional);
         return new ResponseEntity<>(HttpStatus.OK);
     }
