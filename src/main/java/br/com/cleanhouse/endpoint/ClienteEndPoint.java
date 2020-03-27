@@ -52,8 +52,11 @@ public class ClienteEndPoint {
 
     @PostMapping(END_POINT)
     @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity<?> setCliente( @Valid @RequestBody Cliente cliente){
+    public ResponseEntity<?> setCliente(@Valid @RequestBody Cliente cliente){
         salvaUsuario(cliente.getUsuario());
+        @Valid
+        Usuario usuario =  cliente.getUsuario();
+
         List<Residencia> residencias = cliente.getResidencias();
         residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
         //clienteDAO.save(cliente);
@@ -86,18 +89,14 @@ public class ClienteEndPoint {
             throw new ResourceNotFoundException("cliente nao encontrado pelo id: "+id);
         }
     }
+    @Transactional(rollbackFor = Exception.class)
+    private void salvaUsuario(Usuario usuario){
+        @Valid
+        Usuario user = usuario;
+        usuarioDAO.save(user);
+    }
 
    // o @Transational nao funciona entao vou validar na mao e devolver o erro desejado
-    private void salvaUsuario (@Valid @RequestBody Usuario usuario){
-        System.out.println("foooooi");
-        System.out.println(usuario);
-        System.out.println("--=-=-=--=--=-=-=-");
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator ();
-        Set<ConstraintViolation<Usuario>> constraintViolations =
-                validator.validate( usuario);
-        System.out.println(constraintViolations);
-        usuarioDAO.save(usuario);
-    }
+
 }
 

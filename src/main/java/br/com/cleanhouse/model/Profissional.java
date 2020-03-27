@@ -1,6 +1,7 @@
 package br.com.cleanhouse.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -17,11 +18,17 @@ public class Profissional extends AtributosGenericos {
 
     @OneToOne
     private Usuario usuario;
+    /*
+    * @DateTimeFormat(pattern="dd/MM/yyyy")
+      private Calendar dataFinalizacao;
+    *
+    * */
 
 
     @NotNull
     private String nomeCompleto;
 
+    @CPF
     private String cpf;
 
     @Past(message= "a data deve estar no passado")
