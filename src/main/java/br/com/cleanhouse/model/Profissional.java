@@ -32,6 +32,9 @@ public class Profissional extends AtributosGenericos {
 
     private String videoPerfil;
 
+    private String telefoneFixo;
+    private String celular;
+
     @ManyToMany
     @JoinTable(
             name = "tbl_profissional_endereco",

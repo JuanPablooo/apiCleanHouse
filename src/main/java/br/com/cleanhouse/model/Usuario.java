@@ -26,7 +26,6 @@ public class Usuario extends AtributosGenericos{
     @Size(min=8, max=20, message="A senha deve conter no mínimo 8 caracteres e no máximo 20!")
     private String senha;
 
-
     private String tipo;
 
 }

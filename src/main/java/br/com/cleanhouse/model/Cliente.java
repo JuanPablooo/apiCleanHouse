@@ -1,6 +1,7 @@
 package br.com.cleanhouse.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -23,7 +24,7 @@ public class Cliente extends AtributosGenericos{
     private String dataNascimento;
 
 
-
+    @CPF
     @NotNull
     private String cpf;
 

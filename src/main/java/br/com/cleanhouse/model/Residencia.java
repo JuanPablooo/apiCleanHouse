@@ -14,7 +14,7 @@ public class Residencia extends AtributosGenericos {
 
     private String complemento;
 
-    private Long quantidaQuartos;
+    private Long quantidadeQuartos;
 
     @OneToOne
     private Endereco endereco;

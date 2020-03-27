@@ -87,17 +87,12 @@ public class ClienteEndPoint {
         }
     }
 
-   // o @Transational nao funciona entao vou validar na mao e devolver o erro desejado
-    private void salvaUsuario (@Valid @RequestBody Usuario usuario){
-        System.out.println("foooooi");
-        System.out.println(usuario);
-        System.out.println("--=-=-=--=--=-=-=-");
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator ();
-        Set<ConstraintViolation<Usuario>> constraintViolations =
-                validator.validate( usuario);
-        System.out.println(constraintViolations);
-        usuarioDAO.save(usuario);
+    @Transactional(rollbackFor = Exception.class)
+    private void salvaUsuario(Usuario usuario){
+        @Valid
+        Usuario user = usuario;
+        user.setTipo("cliente");
+        usuarioDAO.save(user);
     }
 }
 
