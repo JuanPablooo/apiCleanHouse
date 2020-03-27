@@ -38,13 +38,12 @@ public class LoginEndPoint {
 
 
             if(usuarioDAO.findByEmail(usuario.getEmail()).getTipo().equals("cliente")){
-                return ResponseEntity.ok().body(clienteDAO.findAll());
+                return ResponseEntity.ok().body(clienteDAO.findByIdUsuario(usuario));
             }
-            //else if(profissionalDAO.existsByEmail(usuario.getEmail())){
-                //return ResponseEntity.ok().body(profissionalDAO.findAll());
-            //}
-
-            return ResponseEntity.ok().body("Não tem tipo");
+            else if(usuarioDAO.findByEmail(usuario.getEmail()).getTipo().equals("profissional")){
+                return ResponseEntity.ok().body(profissionalDAO.findAll());
+            }
+            return ResponseEntity.ok().body("Não tem tipo : " + usuarioDAO.findByEmail(usuario.getEmail()).getId());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário ou Senha incorretos!");
     }
