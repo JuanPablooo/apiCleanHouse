@@ -36,7 +36,8 @@ public class LoginEndPoint {
 
         if(usuarioDAO.existsByEmailAndSenha(usuario.getEmail(), usuario.getSenha())){
 
-            if(usuarioDAO.findByEmail(usuario.getEmail()).getTipo() == "cliente"){
+
+            if(usuarioDAO.findByEmail(usuario.getEmail()).getTipo().equals("cliente")){
                 return ResponseEntity.ok().body(clienteDAO.findAll());
             }
             //else if(profissionalDAO.existsByEmail(usuario.getEmail())){

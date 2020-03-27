@@ -8,7 +8,6 @@ import br.com.cleanhouse.model.Usuario;
 import br.com.cleanhouse.repository.EnderecoRepository;
 import br.com.cleanhouse.repository.ProfissionalRepository;
 import br.com.cleanhouse.repository.UsuarioRepository;
-import jdk.internal.reflect.CallerSensitive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
