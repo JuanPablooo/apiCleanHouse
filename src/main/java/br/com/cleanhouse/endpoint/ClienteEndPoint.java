@@ -54,8 +54,10 @@ public class ClienteEndPoint {
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<?> setCliente( @Valid @RequestBody Cliente cliente){
         salvaUsuario(cliente.getUsuario());
-        List<Residencia> residencias = cliente.getResidencias();
-        residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+        if(cliente.getResidencias() != null){
+            List<Residencia> residencias = cliente.getResidencias();
+            residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+        }
         //clienteDAO.save(cliente);
         return new ResponseEntity<>(clienteDAO.save(cliente), HttpStatus.CREATED);
     }
@@ -65,8 +67,10 @@ public class ClienteEndPoint {
     public ResponseEntity<?> atualizaCliente(@Valid @RequestBody Cliente  cliente){
         usuarioDAO.save(cliente.getUsuario());
         verificaExistenciaIdCliente(cliente.getId());
-        List<Residencia> residencias = cliente.getResidencias();
-        residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+        if(cliente.getResidencias() != null){
+            List<Residencia> residencias = cliente.getResidencias();
+            residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+        }
         return new ResponseEntity<>(clienteDAO.save(cliente), HttpStatus.OK);
     }
 
