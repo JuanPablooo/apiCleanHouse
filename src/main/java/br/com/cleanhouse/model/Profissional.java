@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -32,12 +33,15 @@ public class Profissional extends AtributosGenericos {
     private String cpf;
 
     @Past(message= "a data deve estar no passado")
-    private Instant dataNascimento;
-
+    @Temporal(TemporalType.DATE)
+    private Date dataNascimento;
 
     private String fotoPerfil;
 
     private String videoPerfil;
+
+    private String telefoneFixo;
+    private String celular;
 
     @ManyToMany
     @JoinTable(

@@ -54,11 +54,18 @@ public class ClienteEndPoint {
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<?> setCliente(@Valid @RequestBody Cliente cliente){
         salvaUsuario(cliente.getUsuario());
+<<<<<<< HEAD
         @Valid
         Usuario usuario =  cliente.getUsuario();
 
         List<Residencia> residencias = cliente.getResidencias();
         residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+=======
+        if(cliente.getResidencias() != null){
+            List<Residencia> residencias = cliente.getResidencias();
+            residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+        }
+>>>>>>> juan
         //clienteDAO.save(cliente);
         return new ResponseEntity<>(clienteDAO.save(cliente), HttpStatus.CREATED);
     }
@@ -68,8 +75,10 @@ public class ClienteEndPoint {
     public ResponseEntity<?> atualizaCliente(@Valid @RequestBody Cliente  cliente){
         usuarioDAO.save(cliente.getUsuario());
         verificaExistenciaIdCliente(cliente.getId());
-        List<Residencia> residencias = cliente.getResidencias();
-        residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+        if(cliente.getResidencias() != null){
+            List<Residencia> residencias = cliente.getResidencias();
+            residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+        }
         return new ResponseEntity<>(clienteDAO.save(cliente), HttpStatus.OK);
     }
 
@@ -96,7 +105,17 @@ public class ClienteEndPoint {
         usuarioDAO.save(user);
     }
 
+<<<<<<< HEAD
    // o @Transational nao funciona entao vou validar na mao e devolver o erro desejado
 
+=======
+    @Transactional(rollbackFor = Exception.class)
+    private void salvaUsuario(Usuario usuario){
+        @Valid
+        Usuario user = usuario;
+        user.setTipo("cliente");
+        usuarioDAO.save(user);
+    }
+>>>>>>> juan
 }
 

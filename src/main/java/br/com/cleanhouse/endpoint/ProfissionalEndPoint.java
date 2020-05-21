@@ -44,20 +44,28 @@ public class ProfissionalEndPoint {
 
     @PostMapping(END_POINT)
     public ResponseEntity<?> setProfissional(@Valid @RequestBody Profissional profissional){
+
         @Valid
         Usuario usuario = profissional.getUsuario();
 
         usuarioDAO.save(usuario);
+
+        salvaUsuario(profissional.getUsuario());
+
         salvaEnderecos(profissional.getEnderecos());
         return new ResponseEntity<>(profissionalDAO.save(profissional), HttpStatus.CREATED);
     }
 
     @PutMapping(END_POINT)
     public ResponseEntity<?> atualizaProfissional(@Valid @RequestBody Profissional profissional){
+
         @Valid
         Usuario usuario = profissional.getUsuario();
         verificaExistenciaIdUsuario(usuario.getId());
         usuarioDAO.save(usuario);
+        verificaExistenciaIdUsuario(profissional.getUsuario().getId());
+        salvaUsuario(profissional.getUsuario());
+
         verificaExistenciaIdProfissional(profissional.getId());
         salvaEnderecos(profissional.getEnderecos());
         profissionalDAO.save(profissional);
@@ -79,11 +87,13 @@ public class ProfissionalEndPoint {
         }
     }
 
+
     private void verificaExistenciaIdUsuario(Long id){
         if( ! usuarioDAO.findById(id).isPresent()){
             throw new ResourceNotFoundException("usuario nao encontrado pelo id:"+id);
         }
     }
+
 
     private void salvaEnderecos(List<Endereco> enderecos){
         enderecos.forEach(  endereco ->{
@@ -96,6 +106,8 @@ public class ProfissionalEndPoint {
     private void salvaUsuario(Usuario usuario){
         @Valid
         Usuario user = usuario;
+        user.setTipo("profissional");
+
         usuarioDAO.save(user);
     }
 

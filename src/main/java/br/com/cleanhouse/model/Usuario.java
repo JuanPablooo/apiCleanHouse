@@ -3,6 +3,7 @@ package br.com.cleanhouse.model;
 import lombok.Data;
 import org.hibernate.validator.constraints.UniqueElements;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -20,6 +21,7 @@ public class Usuario extends AtributosGenericos{
     @NotEmpty
     @NotNull
     @Email(message = "email invalido")
+//    @Column(unique = true)
     private String email;
 
     @NotNull

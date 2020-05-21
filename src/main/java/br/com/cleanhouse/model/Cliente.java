@@ -1,11 +1,13 @@
 package br.com.cleanhouse.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -13,6 +15,7 @@ import java.util.List;
 @Data
 public class Cliente extends AtributosGenericos{
 
+    @NotNull
     @OneToOne
     private Usuario usuario;
     
@@ -20,10 +23,11 @@ public class Cliente extends AtributosGenericos{
     private String nomeCompleto;
 
     @NotNull
-    private String dataNascimento;
+    @Temporal(TemporalType.DATE)
+    private Date dataNascimento;
 
 
-
+    @CPF
     @NotNull
     private String cpf;
 
