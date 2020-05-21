@@ -1,8 +1,6 @@
 package br.com.cleanhouse.endpoint;
 
 
-import br.com.cleanhouse.model.Cliente;
-import br.com.cleanhouse.model.Profissional;
 import br.com.cleanhouse.model.Usuario;
 import br.com.cleanhouse.repository.ClienteRepository;
 import br.com.cleanhouse.repository.ProfissionalRepository;
