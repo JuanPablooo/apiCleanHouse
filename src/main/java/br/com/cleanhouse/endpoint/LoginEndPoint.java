@@ -1,9 +1,7 @@
 package br.com.cleanhouse.endpoint;
 
 
-import br.com.cleanhouse.model.Cliente;
-import br.com.cleanhouse.model.Profissional;
-import br.com.cleanhouse.model.Usuario;
+import br.com.cleanhouse.model.*;
 import br.com.cleanhouse.repository.ClienteRepository;
 import br.com.cleanhouse.repository.ProfissionalRepository;
 import br.com.cleanhouse.repository.UsuarioRepository;
@@ -37,12 +35,15 @@ public class LoginEndPoint {
         if(usuarioDAO.existsByEmailAndSenha(usuario.getEmail(), usuario.getSenha())){
 
             Usuario user = usuarioDAO.findByEmail(usuario.getEmail());
-//
             if(usuarioDAO.findByEmail(usuario.getEmail()).getTipo().equals("cliente")){
-                return ResponseEntity.ok().body(clienteDAO.findByUsuario(user));
+
+                ClienteDTO dto = new ClienteDTO(clienteDAO.findByUsuario(user));
+                return ResponseEntity.ok().body(dto);
             }
             else if(usuarioDAO.findByEmail(usuario.getEmail()).getTipo().equals("profissional")){
-                return ResponseEntity.ok().body(profissionalDAO.findByUsuario(user));
+
+                ProfissionalDTO dto = new ProfissionalDTO(profissionalDAO.findByUsuario(user));
+                return ResponseEntity.ok().body(dto);
             }
             return ResponseEntity.ok().body("Não tem tipo : " + usuarioDAO.findByEmail(usuario.getEmail()).getId());
         }

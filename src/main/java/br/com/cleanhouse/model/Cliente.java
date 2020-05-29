@@ -40,7 +40,7 @@ public class Cliente extends AtributosGenericos{
 
     @OneToMany
     @JoinColumn(name = "cliente_id")
-   private List<Residencia> residencias;
+    private List<Residencia> residencias;
 
     
 

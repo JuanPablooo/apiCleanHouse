@@ -16,8 +16,4 @@ public class Residencia extends AtributosGenericos {
     @OneToOne
     private Endereco endereco;
 
-    @OneToOne
-    private Cliente clienteDono;
-
-
 }
