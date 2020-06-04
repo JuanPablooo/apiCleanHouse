@@ -27,7 +27,7 @@ public class Cliente extends AtributosGenericos{
     private Date dataNascimento;
 
 
-    @CPF
+    @CPF(message = "CPF invalido")
     @NotNull
     private String cpf;
 

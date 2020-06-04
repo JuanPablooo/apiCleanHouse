@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Data
 @Table(name = "tbl_usuarios")
-
 public class Usuario extends AtributosGenericos{
     @NotEmpty
     @NotNull

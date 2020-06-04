@@ -9,8 +9,6 @@ import javax.persistence.*;
 @Table(name = "tbl_residencias")
 public class Residencia extends AtributosGenericos {
 
-    private String complemento;
-
     private Long quantidadeQuartos;
 
     @OneToOne

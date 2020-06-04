@@ -23,5 +23,7 @@ public class Endereco extends AtributosGenericos {
 
     private String pais;
 
+    private String complemento;
+
     private String pontoReferencia;
 }
