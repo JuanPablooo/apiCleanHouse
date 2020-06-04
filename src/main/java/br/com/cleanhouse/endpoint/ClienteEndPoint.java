@@ -68,10 +68,11 @@ public class ClienteEndPoint {
     }
 
 
-    @PutMapping(END_POINT)
-    public ResponseEntity<?> atualizaCliente(@Valid @RequestBody Cliente  cliente){
+    @PutMapping(END_POINT+"/{id}")
+    public ResponseEntity<?> atualizaCliente(@Valid @RequestBody Cliente  cliente, @PathVariable Long id){
         usuarioDAO.save(cliente.getUsuario());
-        verificaExistenciaIdCliente(cliente.getId());
+        verificaExistenciaIdCliente(id);
+        cliente.setId(id);
         if(cliente.getResidencias() != null){
             List<Residencia> residencias = cliente.getResidencias();
             residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});

@@ -56,8 +56,8 @@ public class ProfissionalEndPoint {
         return new ResponseEntity<>(profissionalDAO.save(profissional), HttpStatus.CREATED);
     }
 
-    @PutMapping(END_POINT)
-    public ResponseEntity<?> atualizaProfissional(@Valid @RequestBody Profissional profissional){
+    @PutMapping(END_POINT+ "/{id}")
+    public ResponseEntity<?> atualizaProfissional(@Valid @RequestBody Profissional profissional, @PathVariable Long id){
 
         @Valid
         Usuario usuario = profissional.getUsuario();
@@ -66,10 +66,10 @@ public class ProfissionalEndPoint {
         verificaExistenciaIdUsuario(profissional.getUsuario().getId());
         salvaUsuario(profissional.getUsuario());
 
-        verificaExistenciaIdProfissional(profissional.getId());
+        verificaExistenciaIdProfissional(id);
+        profissional.setId(id);
         salvaEnderecos(profissional.getEnderecos());
-        profissionalDAO.save(profissional);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(profissionalDAO.save(profissional),HttpStatus.OK);
     }
 
 
