@@ -9,16 +9,27 @@ import javax.persistence.*;
 @Table(name = "tbl_residencias")
 public class Residencia extends AtributosGenericos {
 
-
-
-    private String informacoes;
-
     private Long quantidadeQuartos;
 
-    private String numero;
-
-    @ManyToOne
+    @OneToOne
     private Endereco endereco;
 
+	public Long getQuantidadeQuartos() {
+		return quantidadeQuartos;
+	}
+
+	public void setQuantidadeQuartos(Long quantidadeQuartos) {
+		this.quantidadeQuartos = quantidadeQuartos;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	
 
 }

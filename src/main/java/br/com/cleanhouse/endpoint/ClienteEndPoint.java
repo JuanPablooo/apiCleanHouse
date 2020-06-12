@@ -52,21 +52,31 @@ public class ClienteEndPoint {
 
     @PostMapping(END_POINT)
     @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity<?> setCliente( @Valid @RequestBody Cliente cliente){
+    public ResponseEntity<?> setCliente(@Valid @RequestBody Cliente cliente){
         salvaUsuario(cliente.getUsuario());
-        List<Residencia> residencias = cliente.getResidencias();
-        residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+
+        @Valid
+        Usuario usuario =  cliente.getUsuario();
+
+        if(cliente.getResidencias() != null){
+            List<Residencia> residencias = cliente.getResidencias();
+            residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+        }
+
         //clienteDAO.save(cliente);
         return new ResponseEntity<>(clienteDAO.save(cliente), HttpStatus.CREATED);
     }
 
 
-    @PutMapping(END_POINT)
-    public ResponseEntity<?> atualizaCliente(@Valid @RequestBody Cliente  cliente){
+    @PutMapping(END_POINT+"/{id}")
+    public ResponseEntity<?> atualizaCliente(@Valid @RequestBody Cliente  cliente, @PathVariable Long id){
         usuarioDAO.save(cliente.getUsuario());
-        verificaExistenciaIdCliente(cliente.getId());
-        List<Residencia> residencias = cliente.getResidencias();
-        residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+        verificaExistenciaIdCliente(id);
+        cliente.setId(id);
+        if(cliente.getResidencias() != null){
+            List<Residencia> residencias = cliente.getResidencias();
+            residencias.forEach(residencia ->{enderecoDAO.save(residencia.getEndereco()); residenciaDAO.save(residencia);});
+        }
         return new ResponseEntity<>(clienteDAO.save(cliente), HttpStatus.OK);
     }
 
@@ -88,16 +98,15 @@ public class ClienteEndPoint {
     }
 
    // o @Transational nao funciona entao vou validar na mao e devolver o erro desejado
-    private void salvaUsuario (@Valid @RequestBody Usuario usuario){
-        System.out.println("foooooi");
-        System.out.println(usuario);
-        System.out.println("--=-=-=--=--=-=-=-");
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator ();
-        Set<ConstraintViolation<Usuario>> constraintViolations =
-                validator.validate( usuario);
-        System.out.println(constraintViolations);
-        usuarioDAO.save(usuario);
+
+
+    @Transactional(rollbackFor = Exception.class)
+    private void salvaUsuario(Usuario usuario){
+        @Valid
+        Usuario user = usuario;
+        user.setTipo("cliente");
+        usuarioDAO.save(user);
     }
+
 }
 
