@@ -3,6 +3,7 @@ package br.com.cleanhouse.endpoint;
 
 import br.com.cleanhouse.error.ResourceNotFoundException;
 import br.com.cleanhouse.model.Cliente;
+import br.com.cleanhouse.model.ClienteDTO;
 import br.com.cleanhouse.model.Residencia;
 import br.com.cleanhouse.model.Usuario;
 import br.com.cleanhouse.repository.ClienteRepository;
@@ -38,6 +39,9 @@ public class ClienteEndPoint {
 
     @GetMapping(END_POINT)
     public ResponseEntity<?> getClientes(){
+
+        //ClienteDTO clienteDTO = new ClienteDTO(clienteDAO.findAll());
+
         return new ResponseEntity<>(clienteDAO.findAll(), HttpStatus.OK);
     }
 
