@@ -15,6 +15,8 @@ public class Endereco extends AtributosGenericos {
 
     private String cep;
 
+    private String cidade;
+
     private String rua;
 
     private String bairro;

@@ -2,6 +2,7 @@ package br.com.cleanhouse.model;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,10 @@ public class ClienteDTO {
     private String celular;
     private String telefoneFixo;
     private String fotoPerfil;
-    private List<Residencia> residencias;
+    private List<Residencia> residencia;
+    //private List<EnderecoDTO> enderecos;
+
+
 
 //top
 	public ClienteDTO(Cliente cliente){
@@ -33,7 +37,9 @@ public class ClienteDTO {
         this.fotoPerfil = cliente.getFotoPerfil();
         this.telefoneFixo = cliente.getTelefoneFixo();
         this.celular = cliente.getCelular();
-        this.residencias = cliente.getResidencias();
+        this.residencia = cliente.getResidencias();
+
+
     }
 
 }
