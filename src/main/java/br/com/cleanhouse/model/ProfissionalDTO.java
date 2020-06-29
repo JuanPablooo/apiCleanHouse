@@ -14,12 +14,14 @@ public class ProfissionalDTO {
     private String tipo;
     private String nomeCompleto;
     private String cpf;
-    private Date dataNascimento;
+    private String dataNascimento;
     private String celular;
     private String telefoneFixo;
     private String fotoPerfil;
     private String videoPerfil;
+    private Servico servicos;
     private List<Endereco> enderecos;
+    private List<Regiao> regioes;
 
     public ProfissionalDTO(Profissional profissional){
 
@@ -35,6 +37,8 @@ public class ProfissionalDTO {
         this.fotoPerfil = profissional.getFotoPerfil();
         this.videoPerfil = profissional.getVideoPerfil();
         this.enderecos = profissional.getEnderecos();
+        this.servicos = profissional.getServicos();
+        this.regioes = profissional.getRegioes();
 
     }
 
