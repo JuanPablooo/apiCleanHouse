@@ -17,34 +17,33 @@ import java.util.List;
 @Table(name = "tbl_clientes")
 public class Cliente extends AtributosGenericos{
 
-    @NotNull
+    @NotNull(message = "Usuário é obrigatório!")
     @OneToOne
     private Usuario usuario;
     
-    @NotNull
+    @NotNull(message = "Nome é obrigatório!")
     private String nomeCompleto;
 
-    @NotNull
+    @NotNull(message = "Data de Nascimento é obrigatório!")
     //@Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dataNascimento;
 
-    //SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
 
     @CPF(message = "CPF invalido")
-    @NotNull
+    @NotNull(message = "CPF é obrigatório!")
+    @Column(unique = true)
     private String cpf;
 
     private String fotoPerfil;
 
     private String telefoneFixo;
 
-    @NotNull
+    @NotNull(message = "Celular é obrigatório!")
     private String celular;
 
     @OneToMany
-    @NotNull
+    @NotNull(message = "Residencia é obrigatório!")
     @JoinColumn(name = "cliente_id")
     private List<Residencia> residencias;
 

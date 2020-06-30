@@ -20,7 +20,7 @@ public class Usuario extends AtributosGenericos{
     @NotEmpty
     @NotNull
     @Email(message = "email invalido")
-//    @Column(unique = true)
+    @Column(unique = true)
     private String email;
 
     @NotNull

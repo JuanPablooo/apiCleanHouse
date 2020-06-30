@@ -13,7 +13,7 @@ public class Residencia extends AtributosGenericos {
     private Long quantidadeQuartos;
 
     @OneToOne
-    @NotNull
+    @NotNull(message = "Endereço é obrigatório!")
     private Endereco endereco;
 
 }

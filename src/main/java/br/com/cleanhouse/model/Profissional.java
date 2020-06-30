@@ -25,6 +25,7 @@ public class Profissional extends AtributosGenericos {
     private String nomeCompleto;
 
     @CPF
+    @Column(unique = true)
     private String cpf;
 
     @Past(message= "a data deve estar no passado")
