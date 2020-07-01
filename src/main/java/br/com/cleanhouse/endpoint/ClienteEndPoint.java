@@ -15,8 +15,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +29,8 @@ import java.util.Set;
 @RequestMapping("v1")
 public class ClienteEndPoint {
     private final String END_POINT = "clientes";
+
+    private static String UPLOADED_FOLDER = "F:/temp/";
 
     @Autowired
     private ClienteRepository clienteDAO;
@@ -56,8 +63,14 @@ public class ClienteEndPoint {
 
     @PostMapping(END_POINT)
     @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity<?> setCliente(@Valid @RequestBody Cliente cliente){
+    public ResponseEntity<?> setCliente(@Valid @RequestBody Cliente cliente, @RequestParam("file") MultipartFile file) throws IOException {
         salvaUsuario(cliente.getUsuario());
+
+        byte[] bytes = file.getBytes();
+        Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+        Files.write(path, bytes);
+
+        cliente.setFotoPerfil(file.getOriginalFilename());
 
         @Valid
         Usuario usuario =  cliente.getUsuario();

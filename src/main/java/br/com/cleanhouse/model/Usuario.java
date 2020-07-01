@@ -3,14 +3,12 @@ package br.com.cleanhouse.model;
 import lombok.Data;
 import org.hibernate.validator.constraints.UniqueElements;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 //import org.springframework.
 
 @Entity
@@ -28,5 +26,9 @@ public class Usuario extends AtributosGenericos{
     private String senha;
 
     private String tipo;
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "id_usuario")
+    private List<Upload> uploads;
 
 }
