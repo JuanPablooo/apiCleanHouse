@@ -14,8 +14,8 @@ public class Upload extends AtributosGenericos {
 
     private String tipo;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    private Usuario usuario;*/
 
 }
