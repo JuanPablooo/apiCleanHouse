@@ -129,4 +129,69 @@ public class UploadEndPoint {
 
     }
 
+    @PutMapping("foto/{id}")
+    public ResponseEntity<?> updateFoto(@RequestParam MultipartFile foto, @PathVariable("id") Long id){
+
+        if(foto.getSize() <= 2097152){
+            String nomeFile = foto.getOriginalFilename();
+            String tipo = "Imagem";
+
+
+            Upload up = uploadDAO.findById(id).get();
+
+            up.setNome(nomeFile);
+            up.setTipo(tipo);
+
+            if(disco.salvarFoto(foto)){
+                System.out.println(foto.getSize());
+                return new ResponseEntity<>(uploadDAO.save(up), HttpStatus.CREATED);
+            }
+            else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi atualizado");
+            }
+        }else{
+            System.out.println(foto.getSize());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Só é permitido tamanho até 2MB");
+        }
+
+
+
+    }
+
+    @PutMapping("video/{id}")
+    public ResponseEntity<?> updateVideo(@RequestParam MultipartFile video, @PathVariable("id") Long id){
+
+        if(video.getSize() <= 314572800){
+            String nomeFile = video.getOriginalFilename();
+            String tipo = "Video";
+
+            Upload up = uploadDAO.findById(id).get();
+
+            up.setNome(nomeFile);
+            up.setTipo(tipo);
+
+
+            if(disco.salvarVideo(video)){
+                System.out.println(video.getSize());
+                return new ResponseEntity<>(uploadDAO.save(up), HttpStatus.CREATED);
+            }
+            else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi atualizado");
+            }
+        }else{
+            System.out.println(video.getSize());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Só é permitido tamanho até 300MB");
+        }
+
+
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deleteVideo(@PathVariable("id") Long id){
+
+            uploadDAO.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Deletado com sucesso!");
+
+    }
+
 }
