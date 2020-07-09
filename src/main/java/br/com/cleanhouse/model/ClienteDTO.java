@@ -21,6 +21,7 @@ public class ClienteDTO {
     private String telefoneFixo;
     private String fotoPerfil;
     private List<Residencia> residencias;
+    private List<Upload> upload;
 
 
 
@@ -37,7 +38,7 @@ public class ClienteDTO {
         this.telefoneFixo = cliente.getTelefoneFixo();
         this.celular = cliente.getCelular();
         this.residencias = cliente.getResidencias();
-
+        this.upload = cliente.getUsuario().getUploads();
 
     }
 
