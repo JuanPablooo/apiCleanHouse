@@ -38,13 +38,11 @@ public class LoginEndPoint {
             Usuario user = usuarioDAO.findByEmail(usuario.getEmail());
             if(usuarioDAO.findByEmail(usuario.getEmail()).getTipo().equals("cliente")){
 
-                ClienteDTO dto = new ClienteDTO(clienteDAO.findByUsuario(user));
-                return ResponseEntity.ok().body(dto);
+                return ResponseEntity.ok().body(clienteDAO.findByUsuario(user));
             }
             else if(usuarioDAO.findByEmail(usuario.getEmail()).getTipo().equals("profissional")){
 
-                ProfissionalDTO dto = new ProfissionalDTO(profissionalDAO.findByUsuario(user));
-                return ResponseEntity.ok().body(dto);
+                return ResponseEntity.ok().body(profissionalDAO.findByUsuario(user));
             }
             return ResponseEntity.ok().body("Não tem tipo : " + usuarioDAO.findByEmail(usuario.getEmail()).getId());
         }
