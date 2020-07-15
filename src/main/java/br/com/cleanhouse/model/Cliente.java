@@ -1,6 +1,7 @@
 package br.com.cleanhouse.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,10 +44,11 @@ public class Cliente extends AtributosGenericos{
     private String celular;
 
     @OneToMany
-    @NotNull(message = "Residencia é obrigatório!")
     @JoinColumn(name = "cliente_id")
     private List<Residencia> residencias;
 
+//    @JsonManagedReference
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "clienteId")
     @OneToMany
     @JoinColumn(name = "cliente_id")
     private List<SolicitacaoDeServico> solicitacaoDeServicos;
