@@ -2,6 +2,8 @@ package br.com.cleanhouse.model;
 
 import lombok.Data;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,11 +16,13 @@ public class ClienteDTO {
     private String tipo;
     private String nomeCompleto;
     private String cpf;
-    private Date dataNascimento;
+    private String dataNascimento;
     private String celular;
     private String telefoneFixo;
     private String fotoPerfil;
     private List<Residencia> residencias;
+
+
 
     public ClienteDTO(Cliente cliente){
 
@@ -33,6 +37,8 @@ public class ClienteDTO {
         this.telefoneFixo = cliente.getTelefoneFixo();
         this.celular = cliente.getCelular();
         this.residencias = cliente.getResidencias();
+
+
     }
 
 }
