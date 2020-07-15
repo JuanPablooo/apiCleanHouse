@@ -14,23 +14,15 @@ import java.util.List;
 public class SolicitacaoDeServico extends AtributosGenericos{
 
 
-    /*@ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
-
-    @ManyToOne
-    @JoinColumn(name = "profissional_id")
-    private Profissional profissional;*/
-
-
     private Date data;
 
 
     @OneToOne(cascade = CascadeType.REFRESH)
-    private Endereco endereco;
+    private Residencia residencia;
 
 
-    @OneToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "servicos_id")
     private Servico servicos;
 
 

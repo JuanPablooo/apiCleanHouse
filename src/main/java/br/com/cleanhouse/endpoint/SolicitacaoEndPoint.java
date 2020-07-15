@@ -1,13 +1,7 @@
 package br.com.cleanhouse.endpoint;
 
-import br.com.cleanhouse.model.Cliente;
-import br.com.cleanhouse.model.Endereco;
-import br.com.cleanhouse.model.Profissional;
-import br.com.cleanhouse.model.SolicitacaoDeServico;
-import br.com.cleanhouse.repository.ClienteRepository;
-import br.com.cleanhouse.repository.EnderecoRepository;
-import br.com.cleanhouse.repository.ProfissionalRepository;
-import br.com.cleanhouse.repository.SolicitacaoRepository;
+import br.com.cleanhouse.model.*;
+import br.com.cleanhouse.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,24 +28,59 @@ public class SolicitacaoEndPoint {
     private ProfissionalRepository profissionalDAO;
 
     @Autowired
-    private EnderecoRepository enderecoDAO;
+    private ResidenciaRepository residenciaDAO;
+
+    @Autowired
+    private ServicoRepository servicoDAO;
 
     @PostMapping("servico")
-    public ResponseEntity<?> servico(@RequestBody SolicitacaoDeServico solicitacaoDeServico, Long idCliente){
+    public ResponseEntity<?> servico(@Valid @RequestBody SolicitacaoDeServicoDTO solicitacaoDeServicoDTO){
 
-        //Long idCliente = solicitacaoDeServico.getCliente().getId();
-        //Long idProfissional = solicitacaoDeServico.getProfissional().getId();
+        Long idCliente = solicitacaoDeServicoDTO.getIdCliente();
+        Long idProfissional = solicitacaoDeServicoDTO.getIdProfissional();
+        Long idResidencia = solicitacaoDeServicoDTO.getResidencia().getId();
 
-        System.out.println(idCliente);
+        solicitacaoDeServicoDTO.setResidencia(residenciaDAO.findById(idResidencia).get());
+
+        Servico servico = servicoDAO.save(solicitacaoDeServicoDTO.getServicos());
+
+        solicitacaoDeServicoDTO.setServicos(servico);
+
+        System.out.println(servico);
+
+        SolicitacaoDeServico solicitacaoDeServico = new SolicitacaoDeServico();
+
+        solicitacaoDeServico.setServicos(servico);
+        solicitacaoDeServico.setData(solicitacaoDeServicoDTO.getData());
+        solicitacaoDeServico.setResidencia(solicitacaoDeServicoDTO.getResidencia());
+        solicitacaoDeServico.setObservacao(solicitacaoDeServicoDTO.getObservacao());
+        solicitacaoDeServico.setPreco(solicitacaoDeServicoDTO.getPreco());
+        solicitacaoDeServico.setStatus(solicitacaoDeServicoDTO.getStatus());
+
+
+        List<SolicitacaoDeServico> listSolicitacaoDeServicos = new ArrayList<>();
+        listSolicitacaoDeServicos.add(solicitacaoDeServico);
+
         System.out.println(solicitacaoDeServico);
+        System.out.println(listSolicitacaoDeServicos);
 
-        /*@Valid
-        Cliente cliente = solicitacaoDeServico.getCliente();
+        Cliente cliente = clienteDAO.findById(idCliente).get();
+        Profissional profissional = profissionalDAO.findById(idProfissional).get();
 
-        @Valid
-        Profissional profissional = solicitacaoDeServico.getProfissional();*/
 
-        return new ResponseEntity<>("Ok", HttpStatus.CREATED);
+        cliente.setSolicitacaoDeServicos(listSolicitacaoDeServicos);
+        profissional.setSolicitacaoDeServicos(listSolicitacaoDeServicos);
+
+
+        solicitacaoDeServicoDTO.setCliente(cliente.getNomeCompleto());
+        solicitacaoDeServicoDTO.setProfissional(profissional.getNomeCompleto());
+
+        System.out.println(solicitacaoDeServicoDTO);
+        System.out.println(solicitacaoDeServicoDTO.getResidencia().getId());
+
+        solicitacaoDAO.save(solicitacaoDeServico);
+
+        return new ResponseEntity<>(solicitacaoDeServicoDTO, HttpStatus.CREATED);
 
     }
 
