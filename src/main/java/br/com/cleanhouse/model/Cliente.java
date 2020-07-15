@@ -47,6 +47,10 @@ public class Cliente extends AtributosGenericos{
     @JoinColumn(name = "cliente_id")
     private List<Residencia> residencias;
 
+    @OneToMany
+    @JoinColumn(name = "cliente_id")
+    private List<SolicitacaoDeServico> solicitacaoDeServicos;
+
 
 
     public Usuario getUsuario() {
@@ -113,5 +117,13 @@ public class Cliente extends AtributosGenericos{
 
     public void setResidencias(List<Residencia> residencias) {
         this.residencias = residencias;
+    }
+
+    public List<SolicitacaoDeServico> getSolicitacaoDeServicos() {
+        return solicitacaoDeServicos;
+    }
+
+    public void setSolicitacaoDeServicos(List<SolicitacaoDeServico> solicitacaoDeServicos) {
+        this.solicitacaoDeServicos = solicitacaoDeServicos;
     }
 }

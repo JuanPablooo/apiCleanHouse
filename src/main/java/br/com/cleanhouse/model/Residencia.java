@@ -12,6 +12,8 @@ public class Residencia extends AtributosGenericos {
 
     private Long quantidadeQuartos;
 
+    private Long quantidadeBanheiros;
+
     @OneToOne
     @NotNull(message = "Endereço é obrigatório!")
     private Endereco endereco;
