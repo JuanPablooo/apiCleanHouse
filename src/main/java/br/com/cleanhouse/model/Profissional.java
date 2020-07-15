@@ -1,15 +1,11 @@
 package br.com.cleanhouse.model;
 
-import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +53,11 @@ public class Profissional extends AtributosGenericos {
             inverseJoinColumns = @JoinColumn(name = "id_regiao")
     )
     private List<Regiao> regioes;
+
+    @OneToMany
+    @JoinColumn(name = "profissional_id")
+    private List<SolicitacaoDeServico> solicitacaoDeServicos;
+
 
 
     public Usuario getUsuario() {
@@ -146,5 +147,13 @@ public class Profissional extends AtributosGenericos {
 
     public void setRegioes(List<Regiao> regioes) {
         this.regioes = regioes;
+    }
+
+    public List<SolicitacaoDeServico> getSolicitacaoDeServicos() {
+        return solicitacaoDeServicos;
+    }
+
+    public void setSolicitacaoDeServicos(List<SolicitacaoDeServico> solicitacaoDeServicos) {
+        this.solicitacaoDeServicos = solicitacaoDeServicos;
     }
 }
