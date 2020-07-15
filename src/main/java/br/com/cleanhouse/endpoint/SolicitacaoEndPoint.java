@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("solicitacao")
 public class SolicitacaoEndPoint {
-
     @Autowired
     private SolicitacaoRepository solicitacaoDAO;
 
@@ -37,21 +37,15 @@ public class SolicitacaoEndPoint {
     private EnderecoRepository enderecoDAO;
 
     @PostMapping("servico")
-    public ResponseEntity<?> servico(@RequestBody SolicitacaoDeServico solicitacaoDeServico, Long idCliente){
+    public ResponseEntity<?> servico(@RequestBody SolicitacaoDeServico solicitacaoDeServico){
 
-        //Long idCliente = solicitacaoDeServico.getCliente().getId();
-        //Long idProfissional = solicitacaoDeServico.getProfissional().getId();
-
-        System.out.println(idCliente);
+        Optional<Cliente> cliente = clienteDAO.findById(solicitacaoDeServico.getIdC().longValue());
+        Optional<Profissional> profissional = profissionalDAO.findById(solicitacaoDeServico.getIdP().longValue());
+        solicitacaoDeServico.setCliente(cliente.get());
+        solicitacaoDeServico.setProfissional(profissional.get());
+        enderecoDAO.save(solicitacaoDeServico.getEndereco());
         System.out.println(solicitacaoDeServico);
-
-        /*@Valid
-        Cliente cliente = solicitacaoDeServico.getCliente();
-
-        @Valid
-        Profissional profissional = solicitacaoDeServico.getProfissional();*/
-
-        return new ResponseEntity<>("Ok", HttpStatus.CREATED);
+        return new ResponseEntity<>( solicitacaoDAO.save(solicitacaoDeServico) , HttpStatus.CREATED);
 
     }
 

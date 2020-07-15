@@ -1,5 +1,6 @@
 package br.com.cleanhouse.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
@@ -35,8 +36,8 @@ public class Profissional extends AtributosGenericos {
     private String telefoneFixo;
     private String celular;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    private Servico servicos;
+//    @OneToOne(cascade = {CascadeType.ALL})
+//    private Servico servicos;
 
 
     @ManyToMany
@@ -54,6 +55,8 @@ public class Profissional extends AtributosGenericos {
     )
     private List<Regiao> regioes;
 
+//    @JsonManagedReference
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "profissional_id")
     @OneToMany
     @JoinColumn(name = "profissional_id")
     private List<SolicitacaoDeServico> solicitacaoDeServicos;
@@ -123,14 +126,6 @@ public class Profissional extends AtributosGenericos {
 
     public void setCelular(String celular) {
         this.celular = celular;
-    }
-
-    public Servico getServicos() {
-        return servicos;
-    }
-
-    public void setServicos(Servico servicos) {
-        this.servicos = servicos;
     }
 
     public List<Endereco> getEnderecos() {
