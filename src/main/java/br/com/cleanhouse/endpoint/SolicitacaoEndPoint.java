@@ -57,7 +57,6 @@ public class SolicitacaoEndPoint {
         solicitacaoDeServico.setPreco(solicitacaoDeServicoDTO.getPreco());
         solicitacaoDeServico.setStatus(solicitacaoDeServicoDTO.getStatus());
 
-
         List<SolicitacaoDeServico> listSolicitacaoDeServicos = new ArrayList<>();
         listSolicitacaoDeServicos.add(solicitacaoDeServico);
 
@@ -67,10 +66,8 @@ public class SolicitacaoEndPoint {
         Cliente cliente = clienteDAO.findById(idCliente).get();
         Profissional profissional = profissionalDAO.findById(idProfissional).get();
 
-
         cliente.setSolicitacaoDeServicos(listSolicitacaoDeServicos);
         profissional.setSolicitacaoDeServicos(listSolicitacaoDeServicos);
-
 
         solicitacaoDeServicoDTO.setCliente(cliente.getNomeCompleto());
         solicitacaoDeServicoDTO.setProfissional(profissional.getNomeCompleto());

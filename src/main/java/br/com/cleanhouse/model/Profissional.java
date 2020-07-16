@@ -36,8 +36,8 @@ public class Profissional extends AtributosGenericos {
     private String telefoneFixo;
     private String celular;
 
-//    @OneToOne(cascade = {CascadeType.ALL})
-//    private Servico servicos;
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Servico servicos;
 
 
     @ManyToMany
@@ -55,8 +55,6 @@ public class Profissional extends AtributosGenericos {
     )
     private List<Regiao> regioes;
 
-//    @JsonManagedReference
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "profissional_id")
     @OneToMany
     @JoinColumn(name = "profissional_id")
     private List<SolicitacaoDeServico> solicitacaoDeServicos;
@@ -85,6 +83,14 @@ public class Profissional extends AtributosGenericos {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Servico getServicos() {
+        return servicos;
+    }
+
+    public void setServicos(Servico servicos) {
+        this.servicos = servicos;
     }
 
     public String getDataNascimento() {

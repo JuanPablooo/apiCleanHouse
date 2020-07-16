@@ -20,7 +20,7 @@ public class SolicitacaoDeServico extends AtributosGenericos{
 
     private Date data;
 
-    @OneToOne(cascade = CascadeType.REFRESH)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Residencia residencia;
 
     @ManyToOne(cascade = CascadeType.ALL)
