@@ -57,10 +57,11 @@ public class ClienteEndPoint {
     @PostMapping(END_POINT)
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<?> setCliente(@Valid @RequestBody Cliente cliente){
-        salvaUsuario(cliente.getUsuario());
+
 
         @Valid
         Usuario usuario =  cliente.getUsuario();
+        salvaUsuario(usuario);
 
         if(cliente.getResidencias() != null){
             List<Residencia> residencias = cliente.getResidencias();

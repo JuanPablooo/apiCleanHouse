@@ -2,10 +2,13 @@ package br.com.cleanhouse.model;
 
 import lombok.Data;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
-public class SolicitacaoDeServicoDTO {
+public class SolicitacaoDeServicoDTO extends AtributosGenericos {
 
     private Long idCliente;
 
@@ -15,6 +18,7 @@ public class SolicitacaoDeServicoDTO {
 
     private String profissional;
 
+    @Temporal(TemporalType.DATE)
     private Date data;
 
     private Residencia residencia;
@@ -26,5 +30,12 @@ public class SolicitacaoDeServicoDTO {
     private String observacao;
 
     private String status;
+
+
+
+//    public String getData() {
+//        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//        return format.format(data);
+//    }
 
 }

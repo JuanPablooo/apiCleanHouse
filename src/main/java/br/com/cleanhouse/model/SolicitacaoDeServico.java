@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +18,8 @@ import java.util.List;
 @Data
 public class SolicitacaoDeServico extends AtributosGenericos{
 
-
-    private Date data;
+//    @Temporal(TemporalType.DATE)
+//    private Date data;
 
     @OneToOne(cascade = CascadeType.MERGE)
     private Residencia residencia;
@@ -35,5 +36,4 @@ public class SolicitacaoDeServico extends AtributosGenericos{
 
 
     private String status;
-
 }
