@@ -75,7 +75,13 @@ public class SolicitacaoEndPoint {
         System.out.println(solicitacaoDeServicoDTO);
         System.out.println(solicitacaoDeServicoDTO.getResidencia().getId());
 
-        solicitacaoDAO.save(solicitacaoDeServico);
+        try {
+            solicitacaoDAO.save(solicitacaoDeServico);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
 
         return new ResponseEntity<>(solicitacaoDeServicoDTO, HttpStatus.CREATED);
 
