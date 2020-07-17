@@ -20,21 +20,21 @@ public class SolicitacaoDeServico extends AtributosGenericos{
 //    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private Cliente cliente;
 
 //    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "profissional_id")
+    @JsonIgnore
     private Profissional profissional;
 
 
 
     private Date data;
-    private Integer idP;
-    private Integer idC;
 
-    @OneToOne(cascade = CascadeType.REFRESH)
-    private Endereco endereco;
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Residencia residencia;
 
 
 //    @OneToOne(cascade = CascadeType.REFRESH)

@@ -47,8 +47,9 @@ public class Cliente extends AtributosGenericos{
     @JoinColumn(name = "cliente_id")
     private List<Residencia> residencias;
 
-//    @JsonManagedReference
+
 //    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "clienteId")
+//    @JsonManagedReference
     @OneToMany
     @JoinColumn(name = "cliente_id")
     private List<SolicitacaoDeServico> solicitacaoDeServicos;

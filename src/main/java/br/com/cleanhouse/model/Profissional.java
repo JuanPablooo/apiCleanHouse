@@ -55,8 +55,8 @@ public class Profissional extends AtributosGenericos {
     )
     private List<Regiao> regioes;
 
-//    @JsonManagedReference
 //    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "profissional_id")
+//    @JsonManagedReference
     @OneToMany
     @JoinColumn(name = "profissional_id")
     private List<SolicitacaoDeServico> solicitacaoDeServicos;
