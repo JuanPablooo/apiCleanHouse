@@ -46,6 +46,7 @@ public class Cliente extends AtributosGenericos{
     private List<Residencia> residencias;
 
 
+
     @OneToMany
     @JoinColumn(name = "cliente_id")
     private List<SolicitacaoDeServico> solicitacaoDeServicos;

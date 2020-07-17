@@ -4,6 +4,7 @@ import br.com.cleanhouse.model.*;
 import br.com.cleanhouse.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,65 +34,31 @@ public class SolicitacaoEndPoint {
     @Autowired
     private ServicoRepository servicoDAO;
 
-    @PostMapping("servico")
-    public ResponseEntity<?> servico(@Valid @RequestBody SolicitacaoDeServicoDTO solicitacaoDeServicoDTO){
 
+    @PostMapping(value = "servico")
+    public ResponseEntity<?> servico(@RequestBody SolicitacaoDeServicoDTO solicitacaoDeServicoDTO){
+        //pegando dados por meio dos ids informados
+        Cliente cliente = clienteDAO.findById(solicitacaoDeServicoDTO.getIdCliente()).get();
+        Residencia residencia = residenciaDAO.findById(solicitacaoDeServicoDTO.getResidencia().getId()).get();
+        Profissional profissional = profissionalDAO.findById(solicitacaoDeServicoDTO.getIdProfissional()).get();
 
-
-        Long idCliente = solicitacaoDeServicoDTO.getIdCliente();
-        Long idProfissional = solicitacaoDeServicoDTO.getIdProfissional();
-        Long idResidencia = solicitacaoDeServicoDTO.getResidencia().getId();
-        System.out.println("-=-sddssd-=-=-=sd-=-f=ds-");
-        solicitacaoDeServicoDTO.setResidencia(residenciaDAO.findById(idResidencia).get());
-
-        System.out.println("-=-sddssd-=-=-=sd-=-f=ds-");
-        Servico servico = servicoDAO.save(solicitacaoDeServicoDTO.getServicos());
-
-        solicitacaoDeServicoDTO.setServicos(servico);
-
-        System.out.println(servico);
-
+        //criando e inserindo dados recebidos no objeto que ira ser salvo
         SolicitacaoDeServico solicitacaoDeServico = new SolicitacaoDeServico();
-
-        solicitacaoDeServico.setServicos(servico);
-//        solicitacaoDeServico.setData(solicitacaoDeServicoDTO.getData());
-        solicitacaoDeServico.setResidencia(solicitacaoDeServicoDTO.getResidencia());
+        solicitacaoDeServico.setProfissional(profissional);
+        solicitacaoDeServico.setCliente(cliente);
         solicitacaoDeServico.setObservacao(solicitacaoDeServicoDTO.getObservacao());
         solicitacaoDeServico.setPreco(solicitacaoDeServicoDTO.getPreco());
         solicitacaoDeServico.setStatus(solicitacaoDeServicoDTO.getStatus());
-
-        List<SolicitacaoDeServico> listSolicitacaoDeServicos = new ArrayList<>();
-        listSolicitacaoDeServicos.add(solicitacaoDeServico);
-
-        System.out.println(solicitacaoDeServico);
-        System.out.println(listSolicitacaoDeServicos);
-
-        Cliente cliente = clienteDAO.findById(idCliente).get();
-        Profissional profissional = profissionalDAO.findById(idProfissional).get();
-        System.out.println("-=-=--=-=-=--=-=--=-=-=-=-=-=-");
-
-//        System.out.println(solicitacaoDeServicoDTO.getData());
-        System.out.println("-=-=--=-=-=--=-=--=-=-=-=-=-=-");
-        cliente.setSolicitacaoDeServicos(listSolicitacaoDeServicos);
-        profissional.setSolicitacaoDeServicos(listSolicitacaoDeServicos);
-
-//        clienteDAO.save(cliente);
-//        profissionalDAO.save(profissional);
-        solicitacaoDeServicoDTO.setCliente(cliente.getNomeCompleto());
+        solicitacaoDeServico.setResidencia(residencia);
+        solicitacaoDeServico.setData(solicitacaoDeServicoDTO.getData());
+        //salvando objeto criado no banco
+        SolicitacaoDeServico solicitacaoDeServicoSalvado = solicitacaoDAO.save(solicitacaoDeServico);
+        // adicionando nome e objetos com seus respectivos Ids no objeto que sera devolvido ao front
+        solicitacaoDeServicoDTO.setResidencia(residencia);
+        solicitacaoDeServicoDTO.setId(solicitacaoDeServicoSalvado.getId());
         solicitacaoDeServicoDTO.setProfissional(profissional.getNomeCompleto());
-
-        System.out.println(solicitacaoDeServicoDTO);
-        System.out.println("antes deo savleeeeeeeee");
-        System.out.println(solicitacaoDeServico);
-        System.out.println("antes deo savleeeeeeeee22222222222");
-        System.out.println(solicitacaoDeServico.getResidencia().getId());
-
-        try {
-            solicitacaoDeServicoDTO.setId(solicitacaoDAO.save(solicitacaoDeServico).getId());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>(solicitacaoDeServicoDTO, HttpStatus.CREATED);
+        solicitacaoDeServicoDTO.setCliente(cliente.getNomeCompleto());
+        return new ResponseEntity<>( solicitacaoDeServicoDTO, HttpStatus.CREATED);
     }
 
 
