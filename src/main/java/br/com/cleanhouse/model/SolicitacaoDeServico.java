@@ -37,20 +37,14 @@ public class SolicitacaoDeServico extends AtributosGenericos{
     private Profissional profissional;
 
 
-
     private Date data;
-
 
     @OneToOne(cascade = CascadeType.REFRESH)
     private Servico servicos;
 
-
-
     private double preco;
 
-
     private String observacao;
-
 
     private String status;
 }
