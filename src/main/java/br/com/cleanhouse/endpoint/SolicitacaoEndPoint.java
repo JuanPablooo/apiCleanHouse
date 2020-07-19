@@ -42,10 +42,15 @@ public class SolicitacaoEndPoint {
         Residencia residencia = residenciaDAO.findById(solicitacaoDeServicoDTO.getResidencia().getId()).get();
         Profissional profissional = profissionalDAO.findById(solicitacaoDeServicoDTO.getIdProfissional()).get();
 
+        Servico servicos = solicitacaoDeServicoDTO.getServicos();
+
+        servicoDAO.save(servicos);
+
         //criando e inserindo dados recebidos no objeto que ira ser salvo
         SolicitacaoDeServico solicitacaoDeServico = new SolicitacaoDeServico();
         solicitacaoDeServico.setProfissional(profissional);
         solicitacaoDeServico.setCliente(cliente);
+        solicitacaoDeServico.setServicos(servicos);
         solicitacaoDeServico.setObservacao(solicitacaoDeServicoDTO.getObservacao());
         solicitacaoDeServico.setPreco(solicitacaoDeServicoDTO.getPreco());
         solicitacaoDeServico.setStatus(solicitacaoDeServicoDTO.getStatus());

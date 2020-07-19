@@ -21,9 +21,10 @@ public class SolicitacaoDeServico extends AtributosGenericos{
     @OneToOne(cascade = CascadeType.MERGE)
     private Residencia residencia;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "servicos_id")
-//    private Servico servicos;
+    /*@ManyToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "servicos_id")
+
+     */
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -40,10 +41,8 @@ public class SolicitacaoDeServico extends AtributosGenericos{
 
     private Date data;
 
-
-    @OneToOne(cascade = CascadeType.REFRESH)
+    @OneToOne(cascade = CascadeType.ALL)
     private Servico servicos;
-
 
 
     private double preco;

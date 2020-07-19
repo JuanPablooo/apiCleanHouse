@@ -52,6 +52,7 @@ public class Cliente extends AtributosGenericos{
     private List<SolicitacaoDeServico> solicitacaoDeServicos;
 
 
+    //GETTERS E SETTERS
     public Usuario getUsuario() {
         return usuario;
     }
