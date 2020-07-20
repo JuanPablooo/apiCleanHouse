@@ -31,4 +31,12 @@ public class Usuario extends AtributosGenericos{
     @JoinColumn(name = "id_usuario")
     private List<Upload> uploads;
 
+    public Usuario(){
+
+    }
+
+    public Usuario(@NotEmpty @NotNull @Email(message = "email invalido") String email, @NotNull @Size(min = 8, max = 20, message = "A senha deve conter no mínimo 8 caracteres e no máximo 20!") String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
 }
