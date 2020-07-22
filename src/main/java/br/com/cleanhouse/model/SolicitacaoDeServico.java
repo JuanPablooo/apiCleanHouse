@@ -48,4 +48,10 @@ public class SolicitacaoDeServico extends AtributosGenericos{
     private String observacao;
 
     private String status;
+
+    public String getDataNascimento() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(data);
+    }
+
 }

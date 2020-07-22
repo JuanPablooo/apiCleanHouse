@@ -29,10 +29,6 @@ public class Profissional extends AtributosGenericos {
     @Past(message= "a data deve estar no passado")
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
-
-    private String fotoPerfil;
-
-    private String videoPerfil;
     private String telefoneFixo;
     private String celular;
 

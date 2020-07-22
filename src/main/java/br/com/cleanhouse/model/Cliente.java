@@ -35,8 +35,6 @@ public class Cliente extends AtributosGenericos{
     @Column(unique = true)
     private String cpf;
 
-    private String fotoPerfil;
-
     private String telefoneFixo;
 
     @NotNull(message = "Celular é obrigatório!")
@@ -54,4 +52,6 @@ public class Cliente extends AtributosGenericos{
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(dataNascimento);
     }
+
+
 }
