@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("upload")
+@RequestMapping("v1/upload")
 public class UploadEndPoint {
 
     @Autowired

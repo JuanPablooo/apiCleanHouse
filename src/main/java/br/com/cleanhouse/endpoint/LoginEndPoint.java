@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("login")
+@RequestMapping("v1")
 public class LoginEndPoint {
 
     @Autowired
@@ -29,7 +29,7 @@ public class LoginEndPoint {
     @Autowired
     private ProfissionalRepository profissionalDAO;
 
-    @PostMapping("usuario")
+    @PostMapping("login")
     public ResponseEntity<?> findUsuario(@Valid @RequestBody Usuario usuario){
 
 
