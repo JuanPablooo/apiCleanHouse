@@ -52,39 +52,8 @@ public class ClienteEndPoint {
     @GetMapping(END_POINT+"/{id}")
     public ResponseEntity<?> getCliente(@PathVariable("id") Long id){
         verificaExistenciaIdCliente(id);
-
-        //Cliente cliente = clienteDAO.findById(id).get();
-
-        SolicitacaoDeServico solicitacaoDeServico = solicitacaoDeServicoDAO.findByCliente(id);
-
-        List<SolicitacaoDeServico> solicitacaoDeServicoList = new ArrayList<>();
-
-        solicitacaoDeServicoList.add(solicitacaoDeServicoDAO.findByCliente(id));
-
-        System.out.println(solicitacaoDeServicoList);
-        System.out.println(solicitacaoDeServico);
-
-        ProfissionalDTO profissionalDTO = new ProfissionalDTO(solicitacaoDeServico.getProfissional());
-
-
-        ClienteDTO clienteDTO = new ClienteDTO(clienteDAO.findById(id).get());
-
-        SolicitacoesDTO solicitacoesDTO = new SolicitacoesDTO(clienteDTO, profissionalDTO, solicitacaoDeServico);
-
-        /*solicitacoesDTO.setClienteDTO(clienteDTO);
-        solicitacoesDTO.setProfissionalDTO(profissionalDTO);
-        solicitacoesDTO.setData(solicitacaoDeServico.getData());
-        solicitacoesDTO.setObservacao(solicitacaoDeServico.getObservacao());
-        solicitacoesDTO.setPreco(solicitacaoDeServico.getPreco());
-        solicitacoesDTO.setResidencia(solicitacaoDeServico.getResidencia());
-        solicitacoesDTO.setServicos(solicitacaoDeServico.getServicos());
-        solicitacoesDTO.setStatus(solicitacaoDeServico.getStatus());*/
-
-        List<SolicitacoesDTO> solicitacoesDTOList = new ArrayList<>();
-
-        ClientePrincipalDTO clientePrincipalDTO = new ClientePrincipalDTO(clienteDTO, solicitacoesDTOList);
-
-        return new ResponseEntity<>(clientePrincipalDTO, HttpStatus.OK);
+        Cliente cliente = clienteDAO.findById(id).get();
+        return new ResponseEntity<>(cliente, HttpStatus.OK);
     }
 
 

@@ -26,6 +26,8 @@ public class SolicitacaoDeServico extends AtributosGenericos{
 
      */
 
+    private Long idC;
+    private Long idP;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     @JsonIgnore
