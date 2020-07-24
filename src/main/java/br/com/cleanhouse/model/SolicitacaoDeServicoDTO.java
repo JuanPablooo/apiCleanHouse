@@ -11,8 +11,9 @@ import java.util.Date;
 import java.util.Date;
 
 @Data
-public class SolicitacaoDeServicoDTO extends AtributosGenericos{
+public class SolicitacaoDeServicoDTO{
 
+    private Long id;
 
     private Long idCliente;
 

@@ -50,6 +50,8 @@ public class Cliente extends AtributosGenericos{
 
     public String getDataNascimento(){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        System.out.println("FORMATOOOOOOOO DA DATAAAAAAAAA::::::   "+format.format(dataNascimento));
         return format.format(dataNascimento);
     }
 

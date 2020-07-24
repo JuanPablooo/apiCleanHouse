@@ -53,23 +53,24 @@ public class ClienteEndPoint {
     public ResponseEntity<?> getCliente(@PathVariable("id") Long id){
         verificaExistenciaIdCliente(id);
 
-        //Cliente cliente = clienteDAO.findById(id).get();
+        Cliente cliente = clienteDAO.findById(id).get();
 
-        SolicitacaoDeServico solicitacaoDeServico = solicitacaoDeServicoDAO.findByCliente(id);
+        //SolicitacaoDeServico solicitacaoDeServico = solicitacaoDeServicoDAO.findByCliente(cliente);
 
-        List<SolicitacaoDeServico> solicitacaoDeServicoList = new ArrayList<>();
+        List<SolicitacaoDeServico> solicitacaoDeServicoList = new ArrayList<>(solicitacaoDeServicoDAO.findByCliente(cliente));
 
-        solicitacaoDeServicoList.add(solicitacaoDeServicoDAO.findByCliente(id));
 
-        System.out.println(solicitacaoDeServicoList);
-        System.out.println(solicitacaoDeServico);
+        System.out.println("Listaaaa     "+ solicitacaoDeServicoList);
+        //System.out.println(solicitacaoDeServico);
 
-        ProfissionalDTO profissionalDTO = new ProfissionalDTO(solicitacaoDeServico.getProfissional());
+        //ProfissionalDTO profissionalDTO = new ProfissionalDTO(solicitacaoDeServico.getProfissional());
 
 
         ClienteDTO clienteDTO = new ClienteDTO(clienteDAO.findById(id).get());
 
-        SolicitacoesDTO solicitacoesDTO = new SolicitacoesDTO(clienteDTO, profissionalDTO, solicitacaoDeServico);
+        System.out.println(clienteDTO);
+
+        //SolicitacoesDTO solicitacoesDTO = new SolicitacoesDTO(clienteDTO, profissionalDTO, solicitacaoDeServico);
 
         /*solicitacoesDTO.setClienteDTO(clienteDTO);
         solicitacoesDTO.setProfissionalDTO(profissionalDTO);
@@ -82,9 +83,9 @@ public class ClienteEndPoint {
 
         List<SolicitacoesDTO> solicitacoesDTOList = new ArrayList<>();
 
-        ClientePrincipalDTO clientePrincipalDTO = new ClientePrincipalDTO(clienteDTO, solicitacoesDTOList);
+        //ClientePrincipalDTO clientePrincipalDTO = new ClientePrincipalDTO(cliente, solicitacoesDTOList);
 
-        return new ResponseEntity<>(clientePrincipalDTO, HttpStatus.OK);
+        return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
 
