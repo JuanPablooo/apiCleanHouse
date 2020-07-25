@@ -27,6 +27,9 @@ public class Usuario extends AtributosGenericos{
 
     private String tipo;
 
+    private String urlPerfil;
+    private String urlVideo;
+
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "id_usuario")
     private List<Upload> uploads;
