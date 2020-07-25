@@ -23,8 +23,10 @@ public class SolicitacaoDeServico extends AtributosGenericos{
 
     private boolean aprovado;
 
-    private Long idCliente;
-    private Long idProfissional;
+    private Long idC;
+    private Long idP;
+
+
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     @JsonIgnore
