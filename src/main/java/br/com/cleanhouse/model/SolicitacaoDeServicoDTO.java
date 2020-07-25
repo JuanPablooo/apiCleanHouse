@@ -8,12 +8,10 @@ import javax.persistence.TemporalType;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import java.util.Date;
 
 @Data
-public class SolicitacaoDeServicoDTO{
+public class SolicitacaoDeServicoDTO extends AtributosGenericos{
 
-    private Long id;
 
     private Long idCliente;
 

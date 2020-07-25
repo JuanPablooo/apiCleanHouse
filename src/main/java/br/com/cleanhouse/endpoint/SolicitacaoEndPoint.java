@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("solicitacao")
+@RequestMapping("v1/solicitacao")
 public class SolicitacaoEndPoint {
 
     @Autowired
@@ -56,6 +56,8 @@ public class SolicitacaoEndPoint {
         solicitacaoDeServico.setStatus(solicitacaoDeServicoDTO.getStatus());
         solicitacaoDeServico.setResidencia(residencia);
         solicitacaoDeServico.setData(solicitacaoDeServicoDTO.getData());
+        solicitacaoDeServico.setIdCliente(cliente.getId());
+        solicitacaoDeServico.setIdProfissional(profissional.getId());
         //salvando objeto criado no banco
         SolicitacaoDeServico solicitacaoDeServicoSalvado = solicitacaoDAO.save(solicitacaoDeServico);
         // adicionando nome e objetos com seus respectivos Ids no objeto que sera devolvido ao front

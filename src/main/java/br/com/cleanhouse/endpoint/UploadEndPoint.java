@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("upload")
+@RequestMapping("v1/upload")
 public class UploadEndPoint {
 
     @Autowired
@@ -189,8 +189,8 @@ public class UploadEndPoint {
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteVideo(@PathVariable("id") Long id){
 
-            uploadDAO.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Deletado com sucesso!");
+        uploadDAO.deleteById(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Deletado com sucesso!");
 
     }
 

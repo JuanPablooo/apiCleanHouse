@@ -19,8 +19,6 @@ import java.util.List;
 public class ClienteEndPoint {
     private final String END_POINT = "clientes";
 
-    private static String UPLOADED_FOLDER = "F:/temp/";
-
     @Autowired
     private ClienteRepository clienteDAO;
 
@@ -52,40 +50,8 @@ public class ClienteEndPoint {
     @GetMapping(END_POINT+"/{id}")
     public ResponseEntity<?> getCliente(@PathVariable("id") Long id){
         verificaExistenciaIdCliente(id);
-
         Cliente cliente = clienteDAO.findById(id).get();
-
-        //SolicitacaoDeServico solicitacaoDeServico = solicitacaoDeServicoDAO.findByCliente(cliente);
-
-        List<SolicitacaoDeServico> solicitacaoDeServicoList = new ArrayList<>(solicitacaoDeServicoDAO.findByCliente(cliente));
-
-
-        System.out.println("Listaaaa     "+ solicitacaoDeServicoList);
-        //System.out.println(solicitacaoDeServico);
-
-        //ProfissionalDTO profissionalDTO = new ProfissionalDTO(solicitacaoDeServico.getProfissional());
-
-
-        ClienteDTO clienteDTO = new ClienteDTO(clienteDAO.findById(id).get());
-
-        System.out.println(clienteDTO);
-
-        //SolicitacoesDTO solicitacoesDTO = new SolicitacoesDTO(clienteDTO, profissionalDTO, solicitacaoDeServico);
-
-        /*solicitacoesDTO.setClienteDTO(clienteDTO);
-        solicitacoesDTO.setProfissionalDTO(profissionalDTO);
-        solicitacoesDTO.setData(solicitacaoDeServico.getData());
-        solicitacoesDTO.setObservacao(solicitacaoDeServico.getObservacao());
-        solicitacoesDTO.setPreco(solicitacaoDeServico.getPreco());
-        solicitacoesDTO.setResidencia(solicitacaoDeServico.getResidencia());
-        solicitacoesDTO.setServicos(solicitacaoDeServico.getServicos());
-        solicitacoesDTO.setStatus(solicitacaoDeServico.getStatus());*/
-
-        List<SolicitacoesDTO> solicitacoesDTOList = new ArrayList<>();
-
-        //ClientePrincipalDTO clientePrincipalDTO = new ClientePrincipalDTO(cliente, solicitacoesDTOList);
-
-        return new ResponseEntity<>("ok", HttpStatus.OK);
+        return new ResponseEntity<>(cliente, HttpStatus.OK);
     }
 
 
@@ -137,7 +103,7 @@ public class ClienteEndPoint {
         }
     }
 
-   // o @Transational nao funciona entao vou validar na mao e devolver o erro desejado
+    // o @Transational nao funciona entao vou validar na mao e devolver o erro desejado
 
 
     @Transactional(rollbackFor = Exception.class)
