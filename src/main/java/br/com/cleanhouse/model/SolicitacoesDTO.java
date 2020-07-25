@@ -18,15 +18,15 @@ public class SolicitacoesDTO {
     private String observacao;
     private String status;
 
-    public SolicitacoesDTO(ClienteDTO clienteDTO, ProfissionalDTO profissionalDTO, SolicitacaoDeServico solicitacaoDeServico){
-        this.clienteDTO = clienteDTO;
-        this.profissionalDTO = profissionalDTO;
-        this.data = solicitacaoDeServico.getData();
-        this.residencia = solicitacaoDeServico.getResidencia();
-        this.servicos = solicitacaoDeServico.getServicos();
-        this.preco = solicitacaoDeServico.getPreco();
-        this.observacao = solicitacaoDeServico.getObservacao();
-        this.status = solicitacaoDeServico.getStatus();
-    }
+//    public SolicitacoesDTO(ClienteDTO clienteDTO, ProfissionalDTO profissionalDTO, SolicitacaoDeServico solicitacaoDeServico){
+//        this.clienteDTO = clienteDTO;
+//        this.profissionalDTO = profissionalDTO;
+//        this.data = solicitacaoDeServico.getData();
+//        this.residencia = solicitacaoDeServico.getResidencia();
+//        this.servicos = solicitacaoDeServico.getServicos();
+//        this.preco = solicitacaoDeServico.getPreco();
+//        this.observacao = solicitacaoDeServico.getObservacao();
+//        this.status = solicitacaoDeServico.getStatus();
+//    }
 
 }

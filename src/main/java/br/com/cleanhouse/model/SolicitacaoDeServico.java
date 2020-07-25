@@ -36,7 +36,7 @@ public class SolicitacaoDeServico extends AtributosGenericos{
     @JsonIgnore
     private Profissional profissional;
 
-
+    @Temporal(TemporalType.DATE)
     private Date data;
 
     @OneToOne(cascade = CascadeType.REFRESH)
@@ -48,7 +48,7 @@ public class SolicitacaoDeServico extends AtributosGenericos{
 
     private String status;
 
-    public String getDataNascimento() {
+    public String getData() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(data);
     }
