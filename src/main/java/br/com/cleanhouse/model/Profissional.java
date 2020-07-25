@@ -35,6 +35,8 @@ public class Profissional extends AtributosGenericos {
     @OneToOne(cascade = {CascadeType.ALL})
     private Servico servicos;
 
+    private int avaliacao;
+
     @ManyToMany
     @JoinTable(
         name = "tbl_profissional_endereco",

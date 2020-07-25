@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface SolicitacaoRepository extends JpaRepository<SolicitacaoDeServico, Long> {
 
     SolicitacaoDeServico findByCliente(Long cliente_id);
+//    SolicitacaoDeServico findById(Long id);
 }
