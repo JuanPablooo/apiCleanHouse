@@ -51,6 +51,7 @@ public class Profissional extends AtributosGenericos {
     )
     private List<Endereco> enderecos;
 
+<<<<<<< HEAD
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "tbl_profissional_regiao",
             joinColumns = @JoinColumn(name= "profissional_id", referencedColumnName = "id"),
@@ -143,6 +144,81 @@ public class Profissional extends AtributosGenericos {
     public List<Regiao> getRegioes() {
         return regioes;
     }
+=======
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getNomeCompleto() {
+		return nomeCompleto;
+	}
+
+	public void setNomeCompleto(String nomeCompleto) {
+		this.nomeCompleto = nomeCompleto;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public String getFotoPerfil() {
+		return fotoPerfil;
+	}
+
+	public void setFotoPerfil(String fotoPerfil) {
+		this.fotoPerfil = fotoPerfil;
+	}
+
+	public String getVideoPerfil() {
+		return videoPerfil;
+	}
+
+	public void setVideoPerfil(String videoPerfil) {
+		this.videoPerfil = videoPerfil;
+	}
+
+	public String getTelefoneFixo() {
+		return telefoneFixo;
+	}
+
+	public void setTelefoneFixo(String telefoneFixo) {
+		this.telefoneFixo = telefoneFixo;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+	
+>>>>>>> 717dd2e1a1854290badbe126bd259a1bfb988fa2
 
     public void setRegioes(List<Regiao> regioes) {
         this.regioes = regioes;

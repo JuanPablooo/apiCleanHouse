@@ -16,4 +16,22 @@ public class Residencia extends AtributosGenericos {
     @NotNull(message = "Endereço é obrigatório!")
     private Endereco endereco;
 
+	public Long getQuantidadeQuartos() {
+		return quantidadeQuartos;
+	}
+
+	public void setQuantidadeQuartos(Long quantidadeQuartos) {
+		this.quantidadeQuartos = quantidadeQuartos;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	
+
 }

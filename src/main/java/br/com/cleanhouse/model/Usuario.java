@@ -27,8 +27,34 @@ public class Usuario extends AtributosGenericos{
 
     private String tipo;
 
+<<<<<<< HEAD
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "id_usuario")
     private List<Upload> uploads;
 
+=======
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+
+	
+	
+>>>>>>> 717dd2e1a1854290badbe126bd259a1bfb988fa2
 }
