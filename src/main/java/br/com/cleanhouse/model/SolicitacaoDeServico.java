@@ -55,4 +55,18 @@ public class SolicitacaoDeServico extends AtributosGenericos{
         return format.format(data);
     }
 
+    public SolicitacaoDeServico(Residencia residencia, Long idC, Long idP, Date data, Servico servicos, double preco, String observacao, String status) {
+        this.residencia = residencia;
+        this.idC = idC;
+        this.idP = idP;
+        this.data = data;
+        this.servicos = servicos;
+        this.preco = preco;
+        this.observacao = observacao;
+        this.status = status;
+    }
+
+    public SolicitacaoDeServico() {
+
+    }
 }
