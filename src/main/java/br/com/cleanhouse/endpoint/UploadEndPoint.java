@@ -6,17 +6,20 @@ import br.com.cleanhouse.model.Upload;
 import br.com.cleanhouse.model.Usuario;
 import br.com.cleanhouse.repository.UploadRepository;
 import br.com.cleanhouse.repository.UsuarioRepository;
+import br.com.cleanhouse.uploads.FileUpload;
+import br.com.cleanhouse.uploads.FileUploadUrl;
+import br.com.cleanhouse.uploads.FireBaseStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
-@RequestMapping("upload")
+@RequestMapping("v1/upload")
 public class UploadEndPoint {
 
     @Autowired
@@ -27,170 +30,43 @@ public class UploadEndPoint {
 
     @Autowired
     private UsuarioRepository usuarioDAO;
+    @Autowired
+    private FireBaseStorageService fireBase;
 
-    @PostMapping("{id}")
-    public void upload(@RequestParam MultipartFile file, @PathVariable("id") Long id){
-
-
-        String nomeFile = file.getOriginalFilename();
-        String tipo = "Outros";
-
-        Usuario usuario = usuarioDAO.findById(id).get();
-
-        Upload upload = new Upload();
-
-        upload.setNome(nomeFile);
-        upload.setTipo(tipo);
-        //upload.setUsuario(usuario);
-
-        List<Upload> listUpload = new ArrayList<>();
-        listUpload.add(upload);
-
-        usuario.setUploads(listUpload);
-
-        if(disco.salvarFile(file)){
-            uploadDAO.save(upload);
-        }
-        else{
-            System.out.println("Não foi salvo");
-        }
-
-    }
 
     @PostMapping("foto/{id}")
-    public ResponseEntity<?> uploadFoto(@RequestParam MultipartFile foto, @PathVariable("id") Long id){
-
-        if(foto.getSize() <= 2097152){
-            String nomeFile = foto.getOriginalFilename();
-            String tipo = "Imagem";
-
-            Usuario usuario = usuarioDAO.findById(id).get();
-
-            Upload upload = new Upload();
-
-            upload.setNome(nomeFile);
-            upload.setTipo(tipo);
-            //upload.setUsuario(usuario);
-
-            List<Upload> listUpload = new ArrayList<>();
-            listUpload.add(upload);
-
-            usuario.setUploads(listUpload);
-
-            if(disco.salvarFoto(foto)){
-                System.out.println(foto.getSize());
-                return new ResponseEntity<>(uploadDAO.save(upload), HttpStatus.CREATED);
-            }
-            else{
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi salvo");
-            }
-        }else{
-            System.out.println(foto.getSize());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Só é permitido tamanho até 2MB");
+    public ResponseEntity<?> uploadFoto(@RequestBody FileUpload file, @PathVariable Long id){
+        Optional<Usuario> userOpt =  usuarioDAO.findById(id) ;
+        if (userOpt.isPresent()){
+           Usuario user = userOpt.get();
+            FileUploadUrl url = fazIUploadArquivo(file, user.getEmail());
+            user.setUrlPerfil(url.getUrl());
+            usuarioDAO.save(user);
+          return ResponseEntity.status(HttpStatus.OK).body(url);
         }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encotrado");
 
-
-
+    }
+    public FileUploadUrl fazIUploadArquivo (FileUpload file, String email){
+        Random random = new Random();
+        int numAleatorio =  random.nextInt();
+        int numAleatorio2 =  random.nextInt();
+        String has = email + numAleatorio * numAleatorio2;
+        FileUploadUrl url = new FileUploadUrl(fireBase.upLoad(file, has));
+        return  url;
     }
 
     @PostMapping("video/{id}")
-    public ResponseEntity<?> uploadVideo(@RequestParam MultipartFile video, @PathVariable("id") Long id){
-
-        if(video.getSize() <= 314572800){
-            String nomeFile = video.getOriginalFilename();
-            String tipo = "Video";
-
-            Usuario usuario = usuarioDAO.findById(id).get();
-
-            Upload upload = new Upload();
-
-            upload.setNome(nomeFile);
-            upload.setTipo(tipo);
-            //upload.setUsuario(usuario);
-
-            List<Upload> listUpload = new ArrayList<>();
-            listUpload.add(upload);
-
-            usuario.setUploads(listUpload);
-
-            if(disco.salvarVideo(video)){
-                System.out.println(video.getSize());
-                return new ResponseEntity<>(uploadDAO.save(upload), HttpStatus.CREATED);
-            }
-            else{
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi salvo");
-            }
-        }else{
-            System.out.println(video.getSize());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Só é permitido tamanho até 300MB");
+    public ResponseEntity<?> uploadVideo(@RequestBody FileUpload file, @PathVariable Long id){
+        Optional<Usuario> userOpt =  usuarioDAO.findById(id) ;
+        if (userOpt.isPresent()){
+            Usuario user = userOpt.get();
+            FileUploadUrl url = fazIUploadArquivo(file, user.getEmail());
+            user.setUrlVideo(url.getUrl());
+            usuarioDAO.save(user);
+            return ResponseEntity.status(HttpStatus.OK).body(url);
         }
-
-
-
-    }
-
-    @PutMapping("foto/{id}")
-    public ResponseEntity<?> updateFoto(@RequestParam MultipartFile foto, @PathVariable("id") Long id){
-
-        if(foto.getSize() <= 2097152){
-            String nomeFile = foto.getOriginalFilename();
-            String tipo = "Imagem";
-
-
-            Upload up = uploadDAO.findById(id).get();
-
-            up.setNome(nomeFile);
-            up.setTipo(tipo);
-
-            if(disco.salvarFoto(foto)){
-                System.out.println(foto.getSize());
-                return new ResponseEntity<>(uploadDAO.save(up), HttpStatus.CREATED);
-            }
-            else{
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi atualizado");
-            }
-        }else{
-            System.out.println(foto.getSize());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Só é permitido tamanho até 2MB");
-        }
-
-
-
-    }
-
-    @PutMapping("video/{id}")
-    public ResponseEntity<?> updateVideo(@RequestParam MultipartFile video, @PathVariable("id") Long id){
-
-        if(video.getSize() <= 314572800){
-            String nomeFile = video.getOriginalFilename();
-            String tipo = "Video";
-
-            Upload up = uploadDAO.findById(id).get();
-
-            up.setNome(nomeFile);
-            up.setTipo(tipo);
-
-
-            if(disco.salvarVideo(video)){
-                System.out.println(video.getSize());
-                return new ResponseEntity<>(uploadDAO.save(up), HttpStatus.CREATED);
-            }
-            else{
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi atualizado");
-            }
-        }else{
-            System.out.println(video.getSize());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Só é permitido tamanho até 300MB");
-        }
-
-
-    }
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteVideo(@PathVariable("id") Long id){
-
-            uploadDAO.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Deletado com sucesso!");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario nao encotrado");
 
     }
 

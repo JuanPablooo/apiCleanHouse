@@ -27,34 +27,20 @@ public class Usuario extends AtributosGenericos{
 
     private String tipo;
 
-<<<<<<< HEAD
+
+    private String urlPerfil;
+    private String urlVideo;
+
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "id_usuario")
     private List<Upload> uploads;
 
-=======
-	public String getEmail() {
-		return email;
-	}
+    public Usuario(){
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    }
 
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-
-	
-	
->>>>>>> 717dd2e1a1854290badbe126bd259a1bfb988fa2
+    public Usuario(@NotEmpty @NotNull @Email(message = "email invalido") String email, @NotNull @Size(min = 8, max = 20, message = "A senha deve conter no mínimo 8 caracteres e no máximo 20!") String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
 }

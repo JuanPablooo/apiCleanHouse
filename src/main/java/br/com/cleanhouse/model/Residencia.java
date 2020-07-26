@@ -10,7 +10,11 @@ import javax.validation.constraints.NotNull;
 @Table(name = "tbl_residencias")
 public class Residencia extends AtributosGenericos {
 
+    private String nome;
+
     private Long quantidadeQuartos;
+
+    private Long quantidadeBanheiros;
 
     @OneToOne
     @NotNull(message = "Endereço é obrigatório!")

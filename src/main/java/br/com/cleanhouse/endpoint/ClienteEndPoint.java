@@ -2,13 +2,8 @@ package br.com.cleanhouse.endpoint;
 
 
 import br.com.cleanhouse.error.ResourceNotFoundException;
-import br.com.cleanhouse.model.Cliente;
-import br.com.cleanhouse.model.Residencia;
-import br.com.cleanhouse.model.Usuario;
-import br.com.cleanhouse.repository.ClienteRepository;
-import br.com.cleanhouse.repository.EnderecoRepository;
-import br.com.cleanhouse.repository.ResidenciaRepository;
-import br.com.cleanhouse.repository.UsuarioRepository;
+import br.com.cleanhouse.model.*;
+import br.com.cleanhouse.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,6 +25,9 @@ public class ClienteEndPoint {
     private ClienteRepository clienteDAO;
 
     @Autowired
+    private ProfissionalRepository profissionalDAO;
+
+    @Autowired
     private ResidenciaRepository residenciaDAO;
 
     @Autowired
@@ -36,6 +35,9 @@ public class ClienteEndPoint {
 
     @Autowired
     private UsuarioRepository usuarioDAO;
+
+    @Autowired
+    private SolicitacaoRepository solicitacaoDeServicoDAO;
 
     @GetMapping(END_POINT)
     public ResponseEntity<?> getClientes(){
@@ -50,17 +52,19 @@ public class ClienteEndPoint {
     @GetMapping(END_POINT+"/{id}")
     public ResponseEntity<?> getCliente(@PathVariable("id") Long id){
         verificaExistenciaIdCliente(id);
-        return new ResponseEntity<>(clienteDAO.findById(id), HttpStatus.OK);
+        Cliente cliente = clienteDAO.findById(id).get();
+        return new ResponseEntity<>(cliente, HttpStatus.OK);
     }
 
 
     @PostMapping(END_POINT)
     @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<?> setCliente(@Valid @RequestBody Cliente cliente){
-        salvaUsuario(cliente.getUsuario());
+
 
         @Valid
         Usuario usuario =  cliente.getUsuario();
+        salvaUsuario(usuario);
 
         if(cliente.getResidencias() != null){
             List<Residencia> residencias = cliente.getResidencias();
