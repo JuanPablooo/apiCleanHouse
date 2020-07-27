@@ -53,6 +53,7 @@ public class Profissional extends AtributosGenericos {
     @JoinColumn(name = "profissional_id")
     private List<SolicitacaoDeServico> solicitacaoDeServicos;
 
+
     public String getDataNascimento() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(dataNascimento);

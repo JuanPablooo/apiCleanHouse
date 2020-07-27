@@ -44,11 +44,13 @@ public class Cliente extends AtributosGenericos{
     @JoinColumn(name = "cliente_id")
     private List<Residencia> residencias;
 
+    @OneToMany
+    @JoinColumn(name = "cliente_id")
+    private List<SolicitacaoDeServico> solicitacaoDeServicos;
 
     public String getDataNascimento(){
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(dataNascimento);
     }
-
 
 }
