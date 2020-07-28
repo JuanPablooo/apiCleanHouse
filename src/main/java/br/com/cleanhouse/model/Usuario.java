@@ -39,4 +39,11 @@ public class Usuario extends AtributosGenericos{
         this.email = email;
         this.senha = senha;
     }
+
+    public Usuario(@NotEmpty @NotNull @Email(message = "email invalido") String email, @NotNull @Size(min = 8, max = 20, message = "A senha deve conter no mínimo 8 caracteres e no máximo 20!") String senha, String tipo, List<Upload> uploads) {
+        this.email = email;
+        this.senha = senha;
+        this.tipo = tipo;
+        this.uploads = uploads;
+    }
 }

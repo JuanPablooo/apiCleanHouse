@@ -1,5 +1,6 @@
 package br.com.cleanhouse;
 
+import br.com.cleanhouse.endpoint.LoginEndPoint;
 import br.com.cleanhouse.model.Usuario;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,7 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-public class LoginEndPoint extends CleanApplicationTests {
+public class LoginEndPointTest extends CleanApplicationTests {
 
     private MockMvc mockMvc;
 
@@ -21,25 +22,24 @@ public class LoginEndPoint extends CleanApplicationTests {
     private LoginEndPoint loginEndPoint;
 
     @Before
-    private void setUp(){
+    public void setUp(){
         this.mockMvc = MockMvcBuilders.standaloneSetup(loginEndPoint).build();
     }
 
     @Test
     public void FazerLoginComDadosCorretos_RetornarStatusCode200() throws Exception {
 
-        Usuario usuario = new Usuario("catriina@hotmail.com", "123456789");
+        Usuario usuario = new Usuario("catarina@gmail.com", "123456789");
 
         ObjectMapper mapper = new ObjectMapper();
 
         String json = mapper.writeValueAsString(usuario);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/login/usuario")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/v1/login")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(json)
                             )
-                            .andExpect(MockMvcResultMatchers.status().isOk())
-                            .andExpect(MockMvcResultMatchers.header().string("location", Matchers.containsString("http://localhost/login/usuario")));
+                            .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -52,11 +52,11 @@ public class LoginEndPoint extends CleanApplicationTests {
 
         String json = mapper.writeValueAsString(usuario);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/login/usuario")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/v1/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
         )
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
 
     }
 

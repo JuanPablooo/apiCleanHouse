@@ -5,7 +5,7 @@ import com.mercadopago.resources.datastructures.payment.Payer;
 
 public class PagamentoTeste {
 
-    MercadoPago.SDK.setClientSecret(System.getenv("CLIENT_SECRET_OK"));
+    /*MercadoPago.SDK.setClientSecret(System.getenv("CLIENT_SECRET_OK"));
     MercadoPago.SDK.setClientId(System.getenv("CLIENT_ID_OK"));
 
     Payment payment = new Payment()
@@ -21,5 +21,5 @@ public class PagamentoTeste {
     payment.save();
 
     System.out.println(payment.getStatus());
-
+*/
 }
