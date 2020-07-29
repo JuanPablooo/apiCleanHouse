@@ -37,6 +37,10 @@ public class Profissional extends AtributosGenericos {
 
     private int avaliacao;
 
+    @OneToMany
+    @JoinColumn(name = "id_profissional")
+    private List<Comentario> comentarios;
+
     @ManyToMany
     @JoinTable(
         name = "tbl_profissional_endereco",
